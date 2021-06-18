@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AppliedMathLibrary.Matrices
 {
-    /// <summary> Matrix nxm with double elements. </summary>
+    /// <summary> Matrix nxm with double elements </summary>
     public class Matrix : IEnumerable<double>
     {
         private readonly int _n;
@@ -14,7 +14,7 @@ namespace AppliedMathLibrary.Matrices
 
         #region Constructors
 
-        /// <summary> Create nxm matrix whose elements are zeros. </summary>
+        /// <summary> Create nxm matrix whose elements are zeros </summary>
         /// <param name="n">Matrix rows number</param>
         /// <param name="m">Matrix columns number</param>
         public Matrix(int n, int m)
@@ -27,7 +27,7 @@ namespace AppliedMathLibrary.Matrices
             _elements = new double[_n, _m];
         }
 
-        /// <summary> Create nxm matrix with provided values. Expect n * m values. </summary>
+        /// <summary> Create nxm matrix with provided values. Expect n * m values </summary>
         /// <param name="n">Matrix rows number</param>
         /// <param name="m">Matrix columns number</param>
         /// <param name="values">Matrix values</param>
@@ -45,16 +45,16 @@ namespace AppliedMathLibrary.Matrices
             }
         }
 
-        /// <summary> Create nxn matrix whose elements are zeros. </summary>
+        /// <summary> Create nxn matrix whose elements are zeros </summary>
         /// <param name="n">Matrix rows and columns number</param>
         public Matrix(int n) : this(n, n) { }
 
-        /// <summary> Create nxn matrix with provided values. Expect n * n values. </summary>
+        /// <summary> Create nxn matrix with provided values. Expect n * n values </summary>
         /// <param name="n">Matrix rows and columns number</param>
         /// <param name="values">Matrix values</param>
         public Matrix(int n, params double[] values) : this(n, n, values) { }
 
-        /// <summary> Create new matrix based on provided. </summary>
+        /// <summary> Create new matrix based on provided </summary>
         /// <param name="matrix">Old matrix</param>
         public Matrix(Matrix matrix)
         {
