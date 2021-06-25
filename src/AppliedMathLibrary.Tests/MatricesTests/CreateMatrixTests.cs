@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AppliedMathLibrary.Matrices;
+using AppliedMathLibrary.Vectors;
 using FluentAssertions;
 using Xunit;
 
@@ -106,6 +107,23 @@ namespace AppliedMathLibrary.Tests.MatricesTests
             matrixnxn.All(x => x == 0).Should().BeTrue();
         }
 
+        [Fact]
+        public void CreateMatrixBasedOnVector_MatrixCreated()
+        {
+            var v1 = new Vector(3, 1, 2, 3);
+            var v2 = new Vector(3, 4, 5, 6);
+
+            var matrix = new Matrix(v1, v2);
+
+            matrix.Should().NotBeNull();
+            matrix.Rows.Should().Be(2);
+            matrix.Columns.Should().Be(3);
+            matrix[0, 0].Should().Be(1);
+            matrix[0, 2].Should().Be(3);
+            matrix[1, 0].Should().Be(4);
+            matrix[1, 2].Should().Be(6);
+        }
+
         #endregion
 
         #region Negative scenarios
@@ -159,6 +177,27 @@ namespace AppliedMathLibrary.Tests.MatricesTests
             Assert.Throws<ArgumentException>(() =>
             {
                 var matrix = new Matrix(n, m, values);
+            });
+        }
+
+        [Fact]
+        public void CreateMatrixBasedOnVector_WrongAmountOfVectorsProvided_ExceptionThrown()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var matrix = new Matrix();
+            });
+        }
+
+        [Fact]
+        public void CreateMatrixBasedOnVector_ProvidedVectorsWithDifferentDimension_ExceptionThrown()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var v1 = new Vector(2, 1, 2);
+                var v2 = new Vector(3, 4, 5, 6);
+
+                var matrix = new Matrix(v1, v2);
             });
         }
 

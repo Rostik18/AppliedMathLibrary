@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AppliedMathLibrary.Vectors;
 
 namespace AppliedMathLibrary.Matrices
 {
@@ -61,6 +62,30 @@ namespace AppliedMathLibrary.Matrices
             _n = matrix._n;
             _m = matrix._m;
             _elements = matrix._elements.Clone() as double[,];
+        }
+
+        /// <summary> Create new nxm matrix based on n provided vectors with m dimension. All vectors should have the same dimension</summary>
+        /// <param name="vectors">Array of same dimension vectors</param>
+        public Matrix(params Vector[] vectors)
+        {
+            if (!vectors.Any())
+                throw new ArgumentException("Expect at least 1 vector");
+
+            _m = vectors.First().Dimension;
+
+            if (vectors.Any(x => x.Dimension != _m))
+                throw new ArgumentException("Not all provided vectors have the same dimension");
+
+            _n = vectors.Length;
+            _elements = new double[_n, _m];
+
+            for (var i = 0; i < _n; i++)
+            {
+                for (var j = 0; j < _m; j++)
+                {
+                    _elements[i, j] = vectors[i][j];
+                }
+            }
         }
 
         #endregion
