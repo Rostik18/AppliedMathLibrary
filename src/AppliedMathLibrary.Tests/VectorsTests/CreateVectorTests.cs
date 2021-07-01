@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AppliedMathLibrary.Matrices;
+﻿using AppliedMathLibrary.Points;
 using AppliedMathLibrary.Vectors;
 using FluentAssertions;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace AppliedMathLibrary.Tests.VectorsTests
@@ -53,6 +51,19 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             copiedVector.Dimension.Should().Be(2);
             copiedVector[0].Should().Be(1);
             copiedVector[1].Should().Be(2);
+        }
+
+        [Fact]
+        public void CreateVectorFromPoint_VectorCreated()
+        {
+            var point = new Point(2, 1, 2);
+
+            var vector = new Point(point);
+
+            vector.Should().NotBeNull();
+            vector.Dimension.Should().Be(2);
+            vector[0].Should().Be(1);
+            vector[1].Should().Be(2);
         }
 
         #endregion

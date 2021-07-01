@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using AppliedMathLibrary.Matrices;
+﻿using AppliedMathLibrary.Matrices;
 using AppliedMathLibrary.Vectors;
 using FluentAssertions;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace AppliedMathLibrary.Tests.MatricesTests

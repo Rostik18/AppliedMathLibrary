@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppliedMathLibrary", "AppliedMathLibrary\AppliedMathLibrary.csproj", "{E1355BF4-1A63-43C7-B3B1-276C60598F79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppliedMathLibrary.Tests", "AppliedMathLibrary.Tests\AppliedMathLibrary.Tests.csproj", "{93131681-E903-4F85-A021-02C6991E0915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppliedMathLibrary.Tests", "AppliedMathLibrary.Tests\AppliedMathLibrary.Tests.csproj", "{93131681-E903-4F85-A021-02C6991E0915}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AppliedMathLibrary.Vectors;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using AppliedMathLibrary.Vectors;
 
 namespace AppliedMathLibrary.Matrices
 {
@@ -94,8 +94,7 @@ namespace AppliedMathLibrary.Matrices
 
         public int Rows => _n;
         public int Columns => _m;
-        public double this[int i, int j]
-        {
+        public double this[int i, int j] {
             get => _elements[i, j];
             set => _elements[i, j] = value;
         }
