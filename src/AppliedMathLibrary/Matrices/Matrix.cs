@@ -154,6 +154,25 @@ namespace AppliedMathLibrary.Matrices
             return Transpose(this);
         }
 
+        /// <summary> Returns new list of vectors where each vector is matrix row </summary>
+        /// <returns> New list of vectors </returns>
+        public List<Vector> ToVectors()
+        {
+            var vectors = new List<Vector>();
+            var row = new double[_m];
+
+            for (var i = 0; i < _n; i++)
+            {
+                for (var j = 0; j < _m; j++)
+                {
+                    row[j] = _elements[i, j];
+                }
+                vectors.Add(new Vector(row));
+            }
+
+            return vectors;
+        }
+
         #endregion
 
         #region IEnumerableImplementation
