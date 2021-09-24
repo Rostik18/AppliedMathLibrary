@@ -66,6 +66,10 @@ namespace AppliedMathLibrary.Points
 
         #region Methods
 
+        #endregion
+
+        #region IEnumerableImplementation
+
         public IEnumerator<double> GetEnumerator()
         {
             return _elements.Cast<double>().GetEnumerator();

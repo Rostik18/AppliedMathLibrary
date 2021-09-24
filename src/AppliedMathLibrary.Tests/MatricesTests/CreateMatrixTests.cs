@@ -38,6 +38,27 @@ namespace AppliedMathLibrary.Tests.MatricesTests
         }
 
         [Theory]
+        [InlineData(2, 3, new double[] { 1, 2, 3, 4, 5, 6 })]
+        public void CreateMatrix_ProperDimensionAndValuesList_MatrixCreated(int n, int m, IEnumerable<double> values)
+        {
+            var matrixnxm = new Matrix(n, m, values);
+
+            var valuesList = values.ToList();
+
+            matrixnxm.Should().NotBeNull();
+            matrixnxm.Rows.Should().Be(n);
+            matrixnxm.Columns.Should().Be(m);
+
+            for (var i = 0; i < matrixnxm.Rows; i++)
+            {
+                for (var j = 0; j < matrixnxm.Columns; j++)
+                {
+                    matrixnxm[i, j].Should().Be(valuesList[i * m + j]);
+                }
+            }
+        }
+
+        [Theory]
         [InlineData(1, new double[] { 1 })]
         [InlineData(2, new double[] { 1, 2, 3, 4 })]
         [InlineData(3, new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })]
@@ -54,6 +75,27 @@ namespace AppliedMathLibrary.Tests.MatricesTests
                 for (var j = 0; j < matrixnxn.Columns; j++)
                 {
                     matrixnxn[i, j].Should().Be(values[i * n + j]);
+                }
+            }
+        }
+
+        [Theory]
+        [InlineData(2, new double[] { 1, 2, 3, 4 })]
+        public void CreateSquareMatrix_ProperDimensionAndValuesList_MatrixCreated(int n, IEnumerable<double> values)
+        {
+            var matrixnxn = new Matrix(n, values);
+
+            var valuesList = values.ToList();
+
+            matrixnxn.Should().NotBeNull();
+            matrixnxn.Rows.Should().Be(n);
+            matrixnxn.Columns.Should().Be(n);
+
+            for (var i = 0; i < matrixnxn.Rows; i++)
+            {
+                for (var j = 0; j < matrixnxn.Columns; j++)
+                {
+                    matrixnxn[i, j].Should().Be(valuesList[i * n + j]);
                 }
             }
         }

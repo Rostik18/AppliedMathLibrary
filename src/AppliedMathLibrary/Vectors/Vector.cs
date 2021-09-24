@@ -56,7 +56,8 @@ namespace AppliedMathLibrary.Vectors
         #region Properties
 
         public int Dimension => _n;
-        public double this[int i] {
+        public double this[int i]
+        {
             get => _elements[i];
             set => _elements[i] = value;
         }
@@ -64,6 +65,10 @@ namespace AppliedMathLibrary.Vectors
         #endregion
 
         #region Methods
+
+        #endregion
+
+        #region IEnumerableImplementation
 
         public IEnumerator<double> GetEnumerator()
         {

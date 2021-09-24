@@ -46,6 +46,26 @@ namespace AppliedMathLibrary.Matrices
             }
         }
 
+        /// <summary> Create nxm matrix with provided values. Expect n * m values </summary>
+        /// <param name="n">Matrix rows number</param>
+        /// <param name="m">Matrix columns number</param>
+        /// <param name="values">Matrix values</param>
+        public Matrix(int n, int m, IEnumerable<double> values) : this(n, m)
+        {
+            var valuesList = values.ToList();
+
+            if (_n * _m != valuesList.Count)
+                throw new ArgumentException($"Expected {_n * _m} values but received {valuesList.Count}");
+
+            for (var i = 0; i < _n; i++)
+            {
+                for (var j = 0; j < _m; j++)
+                {
+                    _elements[i, j] = valuesList[i * _m + j];
+                }
+            }
+        }
+
         /// <summary> Create nxn matrix whose elements are zeros </summary>
         /// <param name="n">Matrix rows and columns number</param>
         public Matrix(int n) : this(n, n) { }
@@ -54,6 +74,11 @@ namespace AppliedMathLibrary.Matrices
         /// <param name="n">Matrix rows and columns number</param>
         /// <param name="values">Matrix values</param>
         public Matrix(int n, params double[] values) : this(n, n, values) { }
+
+        /// <summary> Create nxn matrix with provided values. Expect n * n values </summary>
+        /// <param name="n">Matrix rows and columns number</param>
+        /// <param name="values">Matrix values</param>
+        public Matrix(int n, IEnumerable<double> values) : this(n, n, values) { }
 
         /// <summary> Create new matrix based on provided </summary>
         /// <param name="matrix">Old matrix</param>
@@ -64,7 +89,7 @@ namespace AppliedMathLibrary.Matrices
             _elements = matrix._elements.Clone() as double[,];
         }
 
-        /// <summary> Create new nxm matrix based on n provided vectors with m dimension. All vectors should have the same dimension</summary>
+        /// <summary> Create new nxm matrix based on n provided vectors with m dimension. All vectors should have the same dimension </summary>
         /// <param name="vectors">Array of same dimension vectors</param>
         public Matrix(params Vector[] vectors)
         {
@@ -94,7 +119,8 @@ namespace AppliedMathLibrary.Matrices
 
         public int Rows => _n;
         public int Columns => _m;
-        public double this[int i, int j] {
+        public double this[int i, int j]
+        {
             get => _elements[i, j];
             set => _elements[i, j] = value;
         }
@@ -102,6 +128,35 @@ namespace AppliedMathLibrary.Matrices
         #endregion
 
         #region Methods
+
+        /// <summary> Returns new transposed matrix </summary>
+        /// <param name="matrix"> Matrix that needs to be transposed </param>
+        /// <returns> New transposed matrix </returns>
+        public static Matrix Transpose(Matrix matrix)
+        {
+            var newMatrix = new Matrix(matrix._m, matrix._n);
+
+            for (var i = 0; i < newMatrix._n; i++)
+            {
+                for (var j = 0; j < newMatrix._m; j++)
+                {
+                    newMatrix._elements[i, j] = matrix._elements[j, i];
+                }
+            }
+
+            return newMatrix;
+        }
+
+        /// <summary> Creates a new transposed matrix based on this </summary>
+        /// <returns> New transposed matrix </returns>
+        public Matrix Transpose()
+        {
+            return Transpose(this);
+        }
+
+        #endregion
+
+        #region IEnumerableImplementation
 
         public IEnumerator<double> GetEnumerator()
         {
