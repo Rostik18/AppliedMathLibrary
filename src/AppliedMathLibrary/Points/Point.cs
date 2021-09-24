@@ -24,14 +24,10 @@ namespace AppliedMathLibrary.Points
             _elements = new double[_n];
         }
 
-        /// <summary> Create a new n-dimensional point with provided values. Expect n values </summary>
-        /// <param name="n">Point dimension</param>
+        /// <summary> Create a new n-dimensional point with provided n values. </summary>
         /// <param name="values">n provided values</param>
-        public Point(int n, params double[] values) : this(n)
+        public Point(params double[] values) : this(values.Length)
         {
-            if (n != values.Length)
-                throw new ArgumentException($"Expected {_n} values but received {values.Length}");
-
             _elements = values.Clone() as double[];
         }
 
@@ -60,7 +56,8 @@ namespace AppliedMathLibrary.Points
         #region Properties
 
         public int Dimension => _n;
-        public double this[int i] {
+        public double this[int i]
+        {
             get => _elements[i];
             set => _elements[i] = value;
         }

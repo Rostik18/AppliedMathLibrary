@@ -110,8 +110,8 @@ namespace AppliedMathLibrary.Tests.MatricesTests
         [Fact]
         public void CreateMatrixBasedOnVector_MatrixCreated()
         {
-            var v1 = new Vector(3, 1, 2, 3);
-            var v2 = new Vector(3, 4, 5, 6);
+            var v1 = new Vector(1, 2, 3);
+            var v2 = new Vector(4, 5, 6);
 
             var matrix = new Matrix(v1, v2);
 

@@ -16,7 +16,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         [InlineData(2, new double[] { 1, 2 })]
         public void CreateVector_ProperDimensionAndValues_VectorCreated(int n, double[] values)
         {
-            var vector = new Vector(n, values);
+            var vector = new Vector(values);
 
             vector.Should().NotBeNull();
             vector.Dimension.Should().Be(n);
@@ -43,7 +43,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         [Fact]
         public void CreateVectorWithCopyConstructor_VectorCreated()
         {
-            var vector = new Vector(2, 1, 2);
+            var vector = new Vector(1, 2);
 
             var copiedVector = new Vector(vector);
 
@@ -56,7 +56,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         [Fact]
         public void CreateVectorFromPoint_VectorCreated()
         {
-            var point = new Point(2, 1, 2);
+            var point = new Point(1, 2);
 
             var vector = new Point(point);
 
@@ -78,19 +78,6 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             Assert.Throws<ArgumentException>(() =>
             {
                 var vector = new Vector(n);
-            });
-        }
-
-        [Theory]
-        [InlineData(1, new double[] { 1, 2 })]
-        [InlineData(2, new double[] { 1 })]
-        [InlineData(3, new double[] { })]
-        [InlineData(-1, new double[] { 1 })]
-        public void CreateVectorWithWrongParameters_ExceptionThrown(int n, double[] values)
-        {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var vector = new Vector(n, values);
             });
         }
 

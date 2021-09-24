@@ -24,14 +24,10 @@ namespace AppliedMathLibrary.Vectors
             _elements = new double[_n];
         }
 
-        /// <summary> Create a new n-dimensional vector with provided values. Expect n values </summary>
-        /// <param name="n">Vector dimension</param>
+        /// <summary> Create a new n-dimensional vector with provided n values. </summary>
         /// <param name="values">n provided values</param>
-        public Vector(int n, params double[] values) : this(n)
+        public Vector(params double[] values) : this(values.Length)
         {
-            if (n != values.Length)
-                throw new ArgumentException($"Expected {_n} values but received {values.Length}");
-
             _elements = values.Clone() as double[];
         }
 

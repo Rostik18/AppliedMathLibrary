@@ -16,7 +16,7 @@ namespace AppliedMathLibrary.Tests.PointsTests
         [InlineData(2, new double[] { 1, 2 })]
         public void CreatePoint_ProperDimensionAndValues_PointCreated(int n, double[] values)
         {
-            var point = new Point(n, values);
+            var point = new Point(values);
 
             point.Should().NotBeNull();
             point.Dimension.Should().Be(n);
@@ -43,7 +43,7 @@ namespace AppliedMathLibrary.Tests.PointsTests
         [Fact]
         public void CreatePointWithCopyConstructor_PointCreated()
         {
-            var point = new Point(2, 1, 2);
+            var point = new Point(1, 2);
 
             var copiedPoint = new Point(point);
 
@@ -56,7 +56,7 @@ namespace AppliedMathLibrary.Tests.PointsTests
         [Fact]
         public void CreatePointFromVector_PointCreated()
         {
-            var vector = new Vector(2, 1, 2);
+            var vector = new Vector(1, 2);
 
             var point = new Point(vector);
 
@@ -78,19 +78,6 @@ namespace AppliedMathLibrary.Tests.PointsTests
             Assert.Throws<ArgumentException>(() =>
             {
                 var point = new Point(n);
-            });
-        }
-
-        [Theory]
-        [InlineData(1, new double[] { 1, 2 })]
-        [InlineData(2, new double[] { 1 })]
-        [InlineData(3, new double[] { })]
-        [InlineData(-1, new double[] { 1 })]
-        public void CreatePointWithWrongParameters_ExceptionThrown(int n, double[] values)
-        {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var point = new Point(n, values);
             });
         }
 
