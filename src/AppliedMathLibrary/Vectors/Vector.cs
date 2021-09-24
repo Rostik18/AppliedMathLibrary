@@ -66,6 +66,78 @@ namespace AppliedMathLibrary.Vectors
 
         #region Methods
 
+        /// <summary> Compares vectors with equal dimension by Pareto principle.  True - if this vector is better. False - in all other cases </summary>
+        /// <param name="vector"> Vector for comparison </param>
+        /// <returns> True - if this vector is better by Pareto than provided. False - in all other cases </returns>
+        public bool BetterByParetoThan(Vector vector)
+        {
+            if (_n != vector._n)
+                throw new ArgumentException("Vectors with different dimension cannot be compared");
+
+            var firstHaveBiggerElement = false;
+            var secondHaveBiggerElement = false;
+
+            for (var i = 0; i < _n; i++)
+            {
+                if (_elements[i] > vector._elements[i])
+                    firstHaveBiggerElement = true;
+                else if (_elements[i] < vector._elements[i])
+                    secondHaveBiggerElement = true;
+            }
+
+            return firstHaveBiggerElement && !secondHaveBiggerElement;
+        }
+
+        /// <summary> Compares two vectors with equal dimension by Pareto principle.  True - if first vector is better. False - in all other cases </summary>
+        /// <returns> True - if first vector is better by Pareto than second. False - in all other cases </returns>
+        public static bool CompareByPareto(Vector vector1, Vector vector2)
+        {
+            return vector1.BetterByParetoThan(vector2);
+        }
+
+        /// <summary> Compares two vectors with equal dimension by Pareto principle.  True - if first vector is better. False - in all other cases </summary>
+        /// <returns> True - if first vector is better by Pareto than second. False - in all other cases </returns>
+        public static bool CompareByValue(Vector vector1, Vector vector2)
+        {
+            if (vector1 is null || vector2 is null)
+                throw new NullReferenceException("Comparing vectors cannot be null");
+
+            if (vector1._n != vector2._n)
+                throw new ArgumentException("Vectors with different dimension cannot be compared");
+
+            for (var i = 0; i < vector1._n; i++)
+            {
+                if (Math.Abs(vector1._elements[i] - vector2._elements[i]) > 0.0000000000000001)
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary> Returns best vectors by Pareto if any. All vectors should have equal dimension </summary>
+        /// <returns> Best vectors by Pareto if any </returns>
+        public static List<Vector> BestByPareto(IEnumerable<Vector> vectors)
+        {
+            var vectorsList = vectors.ToList();
+            var bestVectors = new List<Vector>();
+
+            for (var i = 0; i < vectorsList.Count; i++)
+            {
+                for (var j = 0; j < vectorsList.Count; j++)
+                {
+                    if (i == j) continue;
+
+                    if (vectorsList[i].BetterByParetoThan(vectorsList[j]))
+                    {
+                        bestVectors.Add(vectorsList[i]);
+                        break;
+                    }
+                }
+            }
+
+            return bestVectors;
+        }
+
         #endregion
 
         #region IEnumerableImplementation
