@@ -119,6 +119,10 @@ namespace AppliedMathLibrary.Vectors
         public static List<Vector> BestByPareto(IEnumerable<Vector> vectors)
         {
             var vectorsList = vectors.ToList();
+
+            if (vectorsList.Count == 1)
+                return vectorsList;
+
             var bestVectors = new List<Vector>();
 
             for (var i = 0; i < vectorsList.Count; i++)
