@@ -155,29 +155,21 @@ namespace AppliedMathLibrary.Vectors
         {
             var bestVectors = vectors.ToList();
 
+            if (bestVectors.Count < 2)
+                return bestVectors;
+
             for (var k = 0; k < 2; k++)
             {
-                if (bestVectors.Count < 2)
-                    return bestVectors;
-
-                var iterationBestVectors = new List<Vector>();
                 for (var i = 0; i < bestVectors.Count; i++)
                 {
                     for (var j = 0; j < bestVectors.Count; j++)
                     {
                         if (i == j) continue;
 
-                        if (bestVectors[i].BetterByParetoThan(bestVectors[j]) ||
-                            k > 0 && !bestVectors[i].ComparableWith(bestVectors[j]) ||
-                            k > 0 && bestVectors[i].CompareByValueWith(bestVectors[j]))
-                        {
-                            iterationBestVectors.Add(bestVectors[i]);
-                            break;
-                        }
+                        if (bestVectors[i].BetterByParetoThan(bestVectors[j]))
+                            bestVectors.RemoveAt(j);
                     }
                 }
-
-                bestVectors = iterationBestVectors.ToList();
             }
 
             return bestVectors;
