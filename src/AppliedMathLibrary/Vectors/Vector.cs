@@ -95,8 +95,8 @@ namespace AppliedMathLibrary.Vectors
             return vector1.BetterByParetoThan(vector2);
         }
 
-        /// <summary> Compares two vectors with equal dimension by Pareto principle.  True - if first vector is better. False - in all other cases </summary>
-        /// <returns> True - if first vector is better by Pareto than second. False - in all other cases </returns>
+        /// <summary> Compares two vectors with equal dimension by values. True - if all values of first vector equal to seconds. False - in other case </summary>
+        /// <returns> True - if all values of first vector equal to seconds. False - in other case </returns>
         public static bool CompareByValue(Vector vector1, Vector vector2)
         {
             if (vector1 is null || vector2 is null)
@@ -114,33 +114,77 @@ namespace AppliedMathLibrary.Vectors
             return true;
         }
 
+        /// <summary> Compares this vector with equal dimension vector by values. True - if all values of this vector equal to provided. False - in other case </summary>
+        /// <returns> True - if all values of this vector equal to provided. False - in other case </returns>
+        public bool CompareByValueWith(Vector vector) => CompareByValue(this, vector);
+
+        /// <summary> Can two vectors be compared. True - if two vectors can be compared. False - if cannot </summary>
+        /// <returns> True - if two vectors can be compared. False - if cannot </returns>
+        public static bool Comparable(Vector vector1, Vector vector2)
+        {
+            if (vector1 is null || vector2 is null)
+                throw new NullReferenceException("Comparing vectors cannot be null");
+
+            if (vector1._n != vector2._n)
+                return false;
+
+            if (CompareByValue(vector1, vector2))
+                return true;
+
+            var firstHaveBiggerElement = false;
+            var secondHaveBiggerElement = false;
+
+            for (var i = 0; i < vector1._n; i++)
+            {
+                if (vector1._elements[i] > vector2._elements[i])
+                    firstHaveBiggerElement = true;
+                else if (vector1._elements[i] < vector2._elements[i])
+                    secondHaveBiggerElement = true;
+            }
+
+            return firstHaveBiggerElement && !secondHaveBiggerElement || !firstHaveBiggerElement && secondHaveBiggerElement;
+        }
+
+        /// <summary> Can this vector be compared with provided. True - if two vectors can be compared. False - if cannot </summary>
+        /// <returns> True - if two vectors can be compared. False - if cannot </returns>
+        public bool ComparableWith(Vector vector) => Comparable(this, vector);
+
         /// <summary> Returns best vectors by Pareto if any. All vectors should have equal dimension </summary>
         /// <returns> Best vectors by Pareto if any </returns>
         public static List<Vector> BestByPareto(IEnumerable<Vector> vectors)
         {
-            var vectorsList = vectors.ToList();
+            var bestVectors = vectors.ToList();
 
-            if (vectorsList.Count == 1)
-                return vectorsList;
-
-            var bestVectors = new List<Vector>();
-
-            for (var i = 0; i < vectorsList.Count; i++)
+            for (var k = 0; k < 2; k++)
             {
-                for (var j = 0; j < vectorsList.Count; j++)
-                {
-                    if (i == j) continue;
+                if (bestVectors.Count < 2)
+                    return bestVectors;
 
-                    if (vectorsList[i].BetterByParetoThan(vectorsList[j]))
+                var iterationBestVectors = new List<Vector>();
+                for (var i = 0; i < bestVectors.Count; i++)
+                {
+                    for (var j = 0; j < bestVectors.Count; j++)
                     {
-                        bestVectors.Add(vectorsList[i]);
-                        break;
+                        if (i == j) continue;
+
+                        if (bestVectors[i].BetterByParetoThan(bestVectors[j]) ||
+                            k > 0 && !bestVectors[i].ComparableWith(bestVectors[j]) ||
+                            k > 0 && bestVectors[i].CompareByValueWith(bestVectors[j]))
+                        {
+                            iterationBestVectors.Add(bestVectors[i]);
+                            break;
+                        }
                     }
                 }
+
+                bestVectors = iterationBestVectors.ToList();
             }
 
             return bestVectors;
         }
+
+        /// <summary> Debug ToString representations </summary>
+        public override string ToString() => $"({string.Join(";", _elements)})";
 
         #endregion
 

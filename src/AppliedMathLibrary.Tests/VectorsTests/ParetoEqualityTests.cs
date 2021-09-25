@@ -95,14 +95,27 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         {
             var vector1 = new Vector(4, 4, 3);
             var vector2 = new Vector(1, 2, 3);
-            var vector3 = new Vector(1, 3, 2);
-            var vector4 = new Vector(4, 3, 4);
+            var vector3 = new Vector(4, 3, 4);
+            var vector4 = new Vector(1, 3, 2);
 
             var bestVectors = Vector.BestByPareto(new[] { vector1, vector2, vector3, vector4 });
 
             bestVectors.Count.Should().Be(2);
             bestVectors.Any(x => x == vector1).Should().BeTrue();
-            bestVectors.Any(x => x == vector4).Should().BeTrue();
+            bestVectors.Any(x => x == vector3).Should().BeTrue();
+        }
+
+        [Fact]
+        public void BestByPareto_OneOfThreeBestVectorFound()
+        {
+            var vector1 = new Vector(1, 1, 2);
+            var vector2 = new Vector(1, 0, 1);
+            var vector3 = new Vector(5, 1, 2);
+
+            var bestVectors = Vector.BestByPareto(new[] { vector1, vector2, vector3 });
+
+            bestVectors.Count.Should().Be(1);
+            bestVectors.Any(x => x == vector3).Should().BeTrue();
         }
 
         #region Negative scenarios
