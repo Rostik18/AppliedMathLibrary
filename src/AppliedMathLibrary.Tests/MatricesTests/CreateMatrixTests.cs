@@ -38,6 +38,26 @@ namespace AppliedMathLibrary.Tests.MatricesTests
             }
         }
 
+        // todo: move to separate class
+        /*[Fact]
+        public void InverseMatrix_ProperDimensionAndValues_MatrixCreated()
+        {
+            var matrix = new Matrix(3, new double[]
+            {
+                1, 2, 3,
+                0, 1, 4,
+                5, 6, 0
+            });
+
+            matrix.Should().NotBeNull();
+
+            matrix = matrix.CalculateInverse();
+
+            (matrix[0, 0] == -24 && matrix[0, 1] == 18 && matrix[0, 2] == 5 &&
+             matrix[1, 0] == 20 && matrix[1, 1] == -15 && matrix[1, 2] == -4 &&
+             matrix[2, 0] == -5 && matrix[2, 1] == 4 && matrix[2, 2] == 1).Should().BeTrue();
+        }*/
+
         [Theory]
         [InlineData(2, 3, new double[] { 1, 2, 3, 4, 5, 6 })]
         public void CreateMatrix_ProperDimensionAndValuesList_MatrixCreated(int n, int m, IEnumerable<double> values)

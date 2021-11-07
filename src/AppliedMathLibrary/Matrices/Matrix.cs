@@ -173,6 +173,34 @@ namespace AppliedMathLibrary.Matrices
             return vectors;
         }
 
+        /// <summary> Calculates and returns a new inverse matrix if matrix is square. ONLY FOR 3x3 MATRICES </summary>
+        /// <returns> new inverse matrix </returns>
+        /* public Matrix CalculateInverse()
+        {
+            if (_n != _m && _n != 3)
+                throw new ArgumentException();
+
+            var newMatrix = new Matrix(_n, _m);
+            var determinant = 0.0;
+
+            //finding determinant
+            for (var i = 0; i < _n; i++)
+                determinant += (_elements[0, i] * (_elements[1, (i + 1) % 3] * _elements[2, (i + 2) % 3] -
+                                                   _elements[1, (i + 2) % 3] * _elements[2, (i + 1) % 3]));
+
+            //Inverse of matrix
+            for (var i = 0; i < _n; i++)
+            {
+                for (var j = 0; j < 3; j++)
+                    newMatrix[i, j] =
+                        ((_elements[(j + 1) % 3, (i + 1) % 3] * _elements[(j + 2) % 3, (i + 2) % 3]) -
+                         (_elements[(j + 1) % 3, (i + 2) % 3] * _elements[(j + 2) % 3, (i + 1) % 3])) /
+                        determinant;
+            }
+
+            return newMatrix;
+        } */
+
         #endregion
 
         #region IEnumerableImplementation
