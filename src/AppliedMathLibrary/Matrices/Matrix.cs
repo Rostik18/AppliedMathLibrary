@@ -195,6 +195,31 @@ namespace AppliedMathLibrary.Matrices
             return newMatrix;
         }
 
+        // todo: Add static method
+        /// <summary> Multiply provided vector to this matrix. Expect vector dimension similar with matrix columns </summary>
+        /// <param name="vector"> Multiplication vector </param>
+        /// <returns> New matrix-vector product </returns>
+        public Vector Multiply(Vector vector)
+        {
+            if (_m != vector.Dimension)
+                throw new ArgumentException("Matrices columns count different then vector dimension");
+
+            var newVector = new Vector(_n);
+
+            for (var i = 0; i < _n; i++)
+            {
+                var rowSum = 0.0;
+                for (var j = 0; j < _m; j++)
+                {
+                    rowSum += _elements[i, j] * vector[j];
+                }
+
+                newVector[i] = rowSum;
+            }
+
+            return newVector;
+        }
+
         /// <summary> Calculates and returns a new inverse matrix if matrix is square. ONLY FOR 3x3 MATRICES </summary>
         /// <returns> new inverse matrix </returns>
         /* public Matrix CalculateInverse()
