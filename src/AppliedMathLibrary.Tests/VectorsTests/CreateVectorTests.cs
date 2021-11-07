@@ -66,6 +66,48 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             vector[1].Should().Be(2);
         }
 
+        [Theory]
+        [InlineData(new double[] { 1, 2, 3 })]
+        public void CreateVector3_ProperDimensionAndValues_VectorCreated(double[] values)
+        {
+            var vector = new Vector3(values);
+            var emptyVector = new Vector3();
+            var copyVector = new Vector3(vector);
+
+            vector.Should().NotBeNull();
+            vector.Dimension.Should().Be(3);
+
+            for (var i = 0; i < vector.Dimension; i++)
+            {
+                vector[i].Should().Be(values[i]);
+                emptyVector[i].Should().Be(0);
+                copyVector[i].Should().Be(values[i]);
+            }
+
+            vector.GetHashCode().Should().NotBe(copyVector.GetHashCode());
+        }
+
+        [Theory]
+        [InlineData(new double[] { 1, 2 })]
+        public void CreateVector2_ProperDimensionAndValues_VectorCreated(double[] values)
+        {
+            var vector = new Vector2(values);
+            var emptyVector = new Vector2();
+            var copyVector = new Vector2(vector);
+
+            vector.Should().NotBeNull();
+            vector.Dimension.Should().Be(2);
+
+            for (var i = 0; i < vector.Dimension; i++)
+            {
+                vector[i].Should().Be(values[i]);
+                emptyVector[i].Should().Be(0);
+                copyVector[i].Should().Be(values[i]);
+            }
+
+            vector.GetHashCode().Should().NotBe(copyVector.GetHashCode());
+        }
+
         #endregion
 
         #region Negative scenarios

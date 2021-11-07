@@ -8,8 +8,8 @@ namespace AppliedMathLibrary.Vectors
 {
     public class Vector : IEnumerable<double>
     {
-        private readonly int _n;
-        private double[] _elements;
+        protected readonly int N;
+        protected double[] Elements;
 
         #region Constructors
 
@@ -20,34 +20,34 @@ namespace AppliedMathLibrary.Vectors
             if (n < 1)
                 throw new ArgumentException($"Can not create {n}-dimensional vector. Such a vector has no meaning");
 
-            _n = n;
-            _elements = new double[_n];
+            N = n;
+            Elements = new double[N];
         }
 
         /// <summary> Create a new n-dimensional vector with provided n values. </summary>
         /// <param name="values">n provided values</param>
         public Vector(params double[] values) : this(values.Length)
         {
-            _elements = values.Clone() as double[];
+            Elements = values.Clone() as double[];
         }
 
         /// <summary> Create a new vector based on provided </summary>
         /// <param name="vector">Old vector</param>
         public Vector(Vector vector)
         {
-            _n = vector._n;
-            _elements = vector._elements.Clone() as double[];
+            N = vector.N;
+            Elements = vector.Elements.Clone() as double[];
         }
 
         /// <summary> Create a new vector based on provided point </summary>
         /// <param name="point">Old point</param>
         public Vector(Point point)
         {
-            _n = point.Dimension;
-            _elements = new double[_n];
-            for (var i = 0; i < _n; i++)
+            N = point.Dimension;
+            Elements = new double[N];
+            for (var i = 0; i < N; i++)
             {
-                _elements[i] = point[i];
+                Elements[i] = point[i];
             }
         }
 
@@ -55,11 +55,11 @@ namespace AppliedMathLibrary.Vectors
 
         #region Properties
 
-        public int Dimension => _n;
+        public int Dimension => N;
         public double this[int i]
         {
-            get => _elements[i];
-            set => _elements[i] = value;
+            get => Elements[i];
+            set => Elements[i] = value;
         }
 
         #endregion
@@ -71,17 +71,17 @@ namespace AppliedMathLibrary.Vectors
         /// <returns> True - if this vector is better by Pareto than provided. False - in all other cases </returns>
         public bool BetterByParetoThan(Vector vector)
         {
-            if (_n != vector._n)
+            if (N != vector.N)
                 throw new ArgumentException("Vectors with different dimension cannot be compared");
 
             var firstHaveBiggerElement = false;
             var secondHaveBiggerElement = false;
 
-            for (var i = 0; i < _n; i++)
+            for (var i = 0; i < N; i++)
             {
-                if (_elements[i] > vector._elements[i])
+                if (Elements[i] > vector.Elements[i])
                     firstHaveBiggerElement = true;
-                else if (_elements[i] < vector._elements[i])
+                else if (Elements[i] < vector.Elements[i])
                     secondHaveBiggerElement = true;
             }
 
@@ -102,12 +102,12 @@ namespace AppliedMathLibrary.Vectors
             if (vector1 is null || vector2 is null)
                 throw new NullReferenceException("Comparing vectors cannot be null");
 
-            if (vector1._n != vector2._n)
+            if (vector1.N != vector2.N)
                 throw new ArgumentException("Vectors with different dimension cannot be compared");
 
-            for (var i = 0; i < vector1._n; i++)
+            for (var i = 0; i < vector1.N; i++)
             {
-                if (Math.Abs(vector1._elements[i] - vector2._elements[i]) > 0.0000000000000001)
+                if (Math.Abs(vector1.Elements[i] - vector2.Elements[i]) > 0.0000000000000001)
                     return false;
             }
 
@@ -125,7 +125,7 @@ namespace AppliedMathLibrary.Vectors
             if (vector1 is null || vector2 is null)
                 throw new NullReferenceException("Comparing vectors cannot be null");
 
-            if (vector1._n != vector2._n)
+            if (vector1.N != vector2.N)
                 return false;
 
             if (CompareByValue(vector1, vector2))
@@ -134,11 +134,11 @@ namespace AppliedMathLibrary.Vectors
             var firstHaveBiggerElement = false;
             var secondHaveBiggerElement = false;
 
-            for (var i = 0; i < vector1._n; i++)
+            for (var i = 0; i < vector1.N; i++)
             {
-                if (vector1._elements[i] > vector2._elements[i])
+                if (vector1.Elements[i] > vector2.Elements[i])
                     firstHaveBiggerElement = true;
-                else if (vector1._elements[i] < vector2._elements[i])
+                else if (vector1.Elements[i] < vector2.Elements[i])
                     secondHaveBiggerElement = true;
             }
 
@@ -178,7 +178,7 @@ namespace AppliedMathLibrary.Vectors
         }
 
         /// <summary> Debug ToString representations </summary>
-        public override string ToString() => $"({string.Join(";", _elements)})";
+        public override string ToString() => $"({string.Join(";", Elements)})";
 
         #endregion
 
@@ -186,7 +186,7 @@ namespace AppliedMathLibrary.Vectors
 
         public IEnumerator<double> GetEnumerator()
         {
-            return _elements.Cast<double>().GetEnumerator();
+            return Elements.Cast<double>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
