@@ -174,7 +174,7 @@ namespace AppliedMathLibrary.Matrices
         }
 
         // todo: UNIT TESTS and static method!
-        /// <summary> Subtract matrix from this matrix. Expect matrices with similar dimension </summary>
+        /// <summary> Subtract provided matrix from this matrix. Expect matrices with similar dimension </summary>
         /// <param name="matrix"> Subtraction matrix </param>
         /// <returns> New subtracted matrix </returns>
         public Matrix Subtract(Matrix matrix)

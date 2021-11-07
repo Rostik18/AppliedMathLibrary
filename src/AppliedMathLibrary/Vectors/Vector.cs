@@ -177,6 +177,23 @@ namespace AppliedMathLibrary.Vectors
             return bestVectors;
         }
 
+        // todo: static method!
+        /// <summary> Subtract provided vector from this vector. Expect vectors with similar dimension </summary>
+        /// <param name="vector"> Subtraction vector </param>
+        /// <returns> New subtracted vector </returns>
+        public Vector Subtract(Vector vector)
+        {
+            if (N != vector.N)
+                throw new ArgumentException("Vectors have different dimensions");
+
+            var newVector = new Vector(N);
+
+            for (var i = 0; i < N; i++)
+                newVector[i] = Elements[i] - vector.Elements[i];
+
+            return newVector;
+        }
+
         /// <summary> Debug ToString representations </summary>
         public override string ToString() => $"({string.Join(";", Elements)})";
 
