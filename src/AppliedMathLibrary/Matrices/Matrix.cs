@@ -173,6 +173,28 @@ namespace AppliedMathLibrary.Matrices
             return vectors;
         }
 
+        // todo: UNIT TESTS and static method!
+        /// <summary> Subtract matrix from this matrix. Expect matrices with similar dimension </summary>
+        /// <param name="matrix"> Subtraction matrix </param>
+        /// <returns> New subtracted matrix </returns>
+        public Matrix Subtract(Matrix matrix)
+        {
+            if (_n != matrix._n || _m != matrix._m)
+                throw new ArgumentException("Matrices have different dimensions");
+
+            var newMatrix = new Matrix(_n, _m);
+
+            for (var i = 0; i < _n; i++)
+            {
+                for (var j = 0; j < _m; j++)
+                {
+                    newMatrix[i, j] = _elements[i, j] - matrix._elements[i, j];
+                }
+            }
+
+            return newMatrix;
+        }
+
         /// <summary> Calculates and returns a new inverse matrix if matrix is square. ONLY FOR 3x3 MATRICES </summary>
         /// <returns> new inverse matrix </returns>
         /* public Matrix CalculateInverse()
