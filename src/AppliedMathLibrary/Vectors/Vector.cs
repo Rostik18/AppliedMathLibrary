@@ -177,19 +177,30 @@ namespace AppliedMathLibrary.Vectors
             return bestVectors;
         }
 
-        // todo: static method!
         /// <summary> Subtract provided vector from this vector. Expect vectors with similar dimension </summary>
         /// <param name="vector"> Subtraction vector </param>
         /// <returns> New subtracted vector </returns>
-        public Vector Subtract(Vector vector)
+        public Vector Subtract(Vector vector) => Subtract(this, vector);
+
+        /// <summary> Subtract vector2 from vector1. Expect vectors with similar dimension </summary>
+        /// <param name="vector1"> Vector from which is subtracted </param>
+        /// <param name="vector2"> Subtraction vector </param>
+        /// <returns> New subtracted vector </returns>
+        public static Vector operator -(Vector vector1, Vector vector2) => Subtract(vector1, vector2);
+
+        /// <summary> Subtract vector2 from vector1. Expect vectors with similar dimension </summary>
+        /// <param name="vector1"> Vector from which is subtracted </param>
+        /// <param name="vector2"> Subtraction vector </param>
+        /// <returns> New subtracted vector </returns>
+        public static Vector Subtract(Vector vector1, Vector vector2)
         {
-            if (N != vector.N)
+            if (vector1.N != vector2.N)
                 throw new ArgumentException("Vectors have different dimensions");
 
-            var newVector = new Vector(N);
+            var newVector = new Vector(vector1.N);
 
-            for (var i = 0; i < N; i++)
-                newVector[i] = Elements[i] - vector.Elements[i];
+            for (var i = 0; i < vector1.N; i++)
+                newVector[i] = vector1.Elements[i] - vector2.Elements[i];
 
             return newVector;
         }

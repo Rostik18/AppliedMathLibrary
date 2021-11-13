@@ -16,9 +16,13 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vectorB = new Vector(3, 3, 3);
             var vectorC = new Vector(-2, -1, 0);
 
-            var rez = vectorA.Subtract(vectorB);
+            var rez1 = vectorA.Subtract(vectorB);
+            var rez2 = vectorA - vectorB;
+            var rez3 = Vector.Subtract(vectorA, vectorB);
 
-            rez.Should().BeEquivalentTo(vectorC);
+            rez1.Should().BeEquivalentTo(vectorC);
+            rez2.Should().BeEquivalentTo(vectorC);
+            rez3.Should().BeEquivalentTo(vectorC);
         }
 
         #endregion
@@ -28,13 +32,12 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         [Fact]
         public void SubtractDifferentVectors_ExceptionThrown()
         {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var vectorA = new Vector(1, 2);
-                var vectorB = new Vector(3, 3, 3);
+            var vectorA = new Vector(1, 2);
+            var vectorB = new Vector(3, 3, 3);
 
-                vectorA.Subtract(vectorB);
-            });
+            Assert.Throws<ArgumentException>(() => vectorA.Subtract(vectorB));
+            Assert.Throws<ArgumentException>(() => vectorA - vectorB);
+            Assert.Throws<ArgumentException>(() => Vector.Subtract(vectorA, vectorB));
         }
 
         #endregion
