@@ -173,22 +173,33 @@ namespace AppliedMathLibrary.Matrices
             return vectors;
         }
 
-        // todo: UNIT TESTS and static method!
         /// <summary> Subtract provided matrix from this matrix. Expect matrices with similar dimension </summary>
         /// <param name="matrix"> Subtraction matrix </param>
         /// <returns> New subtracted matrix </returns>
-        public Matrix Subtract(Matrix matrix)
+        public Matrix Subtract(Matrix matrix) => Subtract(this, matrix);
+
+        /// <summary> Subtract matrix B from matrix A. Expect matrices with similar dimension </summary>
+        /// <param name="A"> Left matrix </param>
+        /// <param name="B"> Right matrix </param>
+        /// <returns> New subtracted matrix </returns>
+        public static Matrix operator -(Matrix A, Matrix B) => Subtract(A, B);
+
+        /// <summary> Subtract matrix B from matrix A. Expect matrices with similar dimension </summary>
+        /// <param name="A"> Left matrix </param>
+        /// <param name="B"> Right matrix </param>
+        /// <returns> New subtracted matrix </returns>
+        public static Matrix Subtract(Matrix A, Matrix B)
         {
-            if (_n != matrix._n || _m != matrix._m)
+            if (A._n != B._n || A._m != B._m)
                 throw new ArgumentException("Matrices have different dimensions");
 
-            var newMatrix = new Matrix(_n, _m);
+            var newMatrix = new Matrix(A._n, A._m);
 
-            for (var i = 0; i < _n; i++)
+            for (var i = 0; i < A._n; i++)
             {
-                for (var j = 0; j < _m; j++)
+                for (var j = 0; j < A._m; j++)
                 {
-                    newMatrix[i, j] = _elements[i, j] - matrix._elements[i, j];
+                    newMatrix[i, j] = A._elements[i, j] - B._elements[i, j];
                 }
             }
 
