@@ -10,6 +10,22 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         #region Positive scenarios
 
         [Fact]
+        public void CalcilateDistanceBetweenVectors()
+        {
+            var vectorA = new Vector(1, 2);
+            var vectorB = new Vector(2, 1);
+
+            vectorA.DistanceTo(vectorA).Should().Be(0);
+            Vector.DistanceBetween(vectorA, vectorA).Should().Be(0);
+
+            vectorA.DistanceTo(vectorB).Should().Be(Math.Sqrt(2));
+            Vector.DistanceBetween(vectorA, vectorB).Should().Be(Math.Sqrt(2));
+
+            vectorA.DistanceTo(vectorB).Should().Be(vectorB.DistanceTo(vectorA));
+            Vector.DistanceBetween(vectorA, vectorB).Should().Be(Vector.DistanceBetween(vectorB, vectorA));
+        }
+
+        [Fact]
         public void CalcilateVectorNorm()
         {
             var rand = new Random();
@@ -18,7 +34,10 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vector = new Vector(1, 2, 3);
 
             randVector.Norm().Should().BeGreaterOrEqualTo(0);
+            Vector.Norm(randVector).Should().BeGreaterOrEqualTo(0);
+
             vector.Norm().Should().Be(Math.Sqrt(14));
+            Vector.Norm(vector).Should().Be(Math.Sqrt(14));
         }
 
         [Fact]
@@ -50,6 +69,16 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             Assert.Throws<ArgumentException>(() => vectorA.Subtract(vectorB));
             Assert.Throws<ArgumentException>(() => vectorA - vectorB);
             Assert.Throws<ArgumentException>(() => Vector.Subtract(vectorA, vectorB));
+        }
+
+        [Fact]
+        public void CalcilateDistanceBetweenDifferentVectors_ExceptionThrown()
+        {
+            var vectorA = new Vector(1, 2);
+            var vectorB = new Vector(3, 3, 3);
+
+            Assert.Throws<ArgumentException>(() => vectorA.DistanceTo(vectorB));
+            Assert.Throws<ArgumentException>(() => Vector.DistanceBetween(vectorA, vectorB));
         }
 
         #endregion

@@ -148,6 +148,10 @@ namespace AppliedMathLibrary.Vectors
             return newVector;
         }
 
+        /// <summary> Calculate Euclidean Norm of provided vector </summary>
+        /// <returns> Euclidean Norm of provided vector </returns>
+        public static double Norm(Vector vector) => vector.Norm();
+
         /// <summary> Calculate Euclidean Norm of current vector </summary>
         /// <returns> Euclidean Norm of this vector </returns>
         public double Norm()
@@ -156,6 +160,25 @@ namespace AppliedMathLibrary.Vectors
 
             for (var i = 0; i < N; i++)
                 sum += Elements[i] * Elements[i];
+
+            return Math.Sqrt(sum);
+        }
+
+        /// <summary> Calculate distance between this vector and provided. Expect vectors with similar dimension </summary>
+        /// <returns> Distance between two vectors </returns>
+        public double DistanceTo(Vector vector) => DistanceBetween(this, vector);
+
+        /// <summary> Calculate distance between two vectors. Expect vectors with similar dimension </summary>
+        /// <returns> Distance between two vectors </returns>
+        public static double DistanceBetween(Vector vector1, Vector vector2)
+        {
+            if (vector1.N != vector2.N)
+                throw new ArgumentException("Vectors have different dimensions");
+
+            double sum = 0;
+
+            for (var i = 0; i < vector1.N; i++)
+                sum += Math.Pow(vector1.Elements[i] - vector2.Elements[i], 2);
 
             return Math.Sqrt(sum);
         }
