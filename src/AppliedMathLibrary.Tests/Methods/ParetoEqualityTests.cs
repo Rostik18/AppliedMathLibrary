@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
+using AppliedMathLibrary.Methods;
 using AppliedMathLibrary.Vectors;
 using FluentAssertions;
 using Xunit;
 
-namespace AppliedMathLibrary.Tests.VectorsTests
+namespace AppliedMathLibrary.Tests.Methods
 {
     public class ParetoEqualityTests
     {
@@ -17,8 +18,8 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             vector1.BetterByParetoThan(vector2).Should().BeTrue();
             vector2.BetterByParetoThan(vector1).Should().BeFalse();
 
-            Vector.CompareByPareto(vector1, vector2).Should().BeTrue();
-            Vector.CompareByPareto(vector2, vector1).Should().BeFalse();
+            ParetoMethods.CompareByPareto(vector1, vector2).Should().BeTrue();
+            ParetoMethods.CompareByPareto(vector2, vector1).Should().BeFalse();
         }
 
         [Fact]
@@ -30,8 +31,8 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             vector1.BetterByParetoThan(vector2).Should().BeFalse();
             vector2.BetterByParetoThan(vector1).Should().BeFalse();
 
-            Vector.CompareByPareto(vector1, vector2).Should().BeFalse();
-            Vector.CompareByPareto(vector2, vector1).Should().BeFalse();
+            ParetoMethods.CompareByPareto(vector1, vector2).Should().BeFalse();
+            ParetoMethods.CompareByPareto(vector2, vector1).Should().BeFalse();
         }
 
         [Fact]
@@ -43,8 +44,8 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             vector1.BetterByParetoThan(vector2).Should().BeFalse();
             vector2.BetterByParetoThan(vector1).Should().BeTrue();
 
-            Vector.CompareByPareto(vector1, vector2).Should().BeFalse();
-            Vector.CompareByPareto(vector2, vector1).Should().BeTrue();
+            ParetoMethods.CompareByPareto(vector1, vector2).Should().BeFalse();
+            ParetoMethods.CompareByPareto(vector2, vector1).Should().BeTrue();
         }
 
         [Fact]
@@ -56,8 +57,8 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             vector1.BetterByParetoThan(vector2).Should().BeFalse();
             vector2.BetterByParetoThan(vector1).Should().BeFalse();
 
-            Vector.CompareByPareto(vector1, vector2).Should().BeFalse();
-            Vector.CompareByPareto(vector2, vector1).Should().BeFalse();
+            ParetoMethods.CompareByPareto(vector1, vector2).Should().BeFalse();
+            ParetoMethods.CompareByPareto(vector2, vector1).Should().BeFalse();
         }
 
         [Fact]
@@ -67,7 +68,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vector2 = new Vector(1, 2, 3);
             var vector3 = new Vector(1, 3, 2);
 
-            var bestVectors = Vector.BestByPareto(new[] { vector1, vector2, vector3 });
+            var bestVectors = ParetoMethods.BestByPareto(new[] { vector1, vector2, vector3 });
 
             bestVectors.Count.Should().Be(1);
             bestVectors.First().Should().BeEquivalentTo(vector1);
@@ -81,7 +82,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vector3 = new Vector(1, 3, 2);
             var vector4 = new Vector(4, 4, 4);
 
-            var bestVectors = Vector.BestByPareto(new[] { vector1, vector2, vector3, vector4 });
+            var bestVectors = ParetoMethods.BestByPareto(new[] { vector1, vector2, vector3, vector4 });
 
             bestVectors.Count.Should().Be(2);
             bestVectors.Any(x => x == vector1).Should().BeTrue();
@@ -96,7 +97,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vector3 = new Vector(4, 3, 4);
             var vector4 = new Vector(1, 3, 2);
 
-            var bestVectors = Vector.BestByPareto(new[] { vector1, vector2, vector3, vector4 });
+            var bestVectors = ParetoMethods.BestByPareto(new[] { vector1, vector2, vector3, vector4 });
 
             bestVectors.Count.Should().Be(2);
             bestVectors.Any(x => x == vector1).Should().BeTrue();
@@ -110,7 +111,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vector2 = new Vector(1, 0, 1);
             var vector3 = new Vector(5, 1, 2);
 
-            var bestVectors = Vector.BestByPareto(new[] { vector1, vector2, vector3 });
+            var bestVectors = ParetoMethods.BestByPareto(new[] { vector1, vector2, vector3 });
 
             bestVectors.Count.Should().Be(1);
             bestVectors.Any(x => x == vector3).Should().BeTrue();
@@ -137,10 +138,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vector2 = new Vector(1, 2, 3);
             var vector3 = new Vector(1, 2, 3, 4);
 
-            Assert.Throws<ArgumentException>(() =>
-            {
-                Vector.BestByPareto(new[] { vector1, vector2, vector3 });
-            });
+            Assert.Throws<ArgumentException>(() => ParetoMethods.BestByPareto(new[] { vector1, vector2, vector3 }));
         }
 
         #endregion
