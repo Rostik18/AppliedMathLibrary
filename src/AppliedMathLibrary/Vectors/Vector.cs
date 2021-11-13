@@ -148,6 +148,18 @@ namespace AppliedMathLibrary.Vectors
             return newVector;
         }
 
+        /// <summary> Calculate Euclidean Norm of current vector </summary>
+        /// <returns> Euclidean Norm of this vector </returns>
+        public double Norm()
+        {
+            double sum = 0;
+
+            for (var i = 0; i < N; i++)
+                sum += Elements[i] * Elements[i];
+
+            return Math.Sqrt(sum);
+        }
+
         /// <summary> Debug ToString representations </summary>
         public override string ToString() => $"({string.Join(";", Elements)})";
 

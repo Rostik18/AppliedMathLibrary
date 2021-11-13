@@ -10,6 +10,18 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         #region Positive scenarios
 
         [Fact]
+        public void CalcilateVectorNorm()
+        {
+            var rand = new Random();
+
+            var randVector = new Vector(rand.Next() - 10, rand.Next() - 10);
+            var vector = new Vector(1, 2, 3);
+
+            randVector.Norm().Should().BeGreaterOrEqualTo(0);
+            vector.Norm().Should().Be(Math.Sqrt(14));
+        }
+
+        [Fact]
         public void SubtractVectors_ProperDimensionAndValues_VectorsSubtracted()
         {
             var vectorA = new Vector(1, 2, 3);
