@@ -206,23 +206,35 @@ namespace AppliedMathLibrary.Matrices
             return newMatrix;
         }
 
-        // todo: Add static method
         /// <summary> Multiply provided vector to this matrix. Expect vector dimension similar with matrix columns </summary>
         /// <param name="vector"> Multiplication vector </param>
         /// <returns> New matrix-vector product </returns>
-        public Vector Multiply(Vector vector)
+        public Vector MultiplyBy(Vector vector) => Multiply(this, vector);
+
+        /// <summary> Multiply matrix on left to provided vector from right. Expect vector dimension similar with matrix columns </summary>
+        /// <param name="matrix"> Matrix on left </param>
+        /// <param name="vector"> Vector on right </param>
+        /// <returns> New vector as product of matrix and vector multiplication </returns>
+        public static Vector operator *(Matrix matrix, Vector vector) => Multiply(matrix, vector);
+
+        /// <summary> Multiply matrix on left to provided vector from right. Expect vector dimension similar with matrix columns </summary>
+        /// <param name="matrix"> Matrix on left </param>
+        /// <param name="vector"> Vector on right </param>
+        /// <returns> New vector as product of matrix and vector multiplication </returns>
+        /// <exception cref="ArgumentException"> When Matrix and Vector has incompatible dimensions </exception>
+        public static Vector Multiply(Matrix matrix, Vector vector)
         {
-            if (_m != vector.Dimension)
+            if (matrix._m != vector.Dimension)
                 throw new ArgumentException("Matrices columns count different then vector dimension");
 
-            var newVector = new Vector(_n);
+            var newVector = new Vector(matrix._n);
 
-            for (var i = 0; i < _n; i++)
+            for (var i = 0; i < matrix._n; i++)
             {
                 var rowSum = 0.0;
-                for (var j = 0; j < _m; j++)
+                for (var j = 0; j < matrix._m; j++)
                 {
-                    rowSum += _elements[i, j] * vector[j];
+                    rowSum += matrix._elements[i, j] * vector[j];
                 }
 
                 newVector[i] = rowSum;

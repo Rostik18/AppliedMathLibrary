@@ -31,13 +31,15 @@ namespace AppliedMathLibrary.Tests.MatricesTests
         {
             var matrix = new Matrix(2, 3, 1, -1, 2, 0, -3, 1);
             var vector = new Vector(2, 1, 0);
+            var expected = new Vector(1, -3);
 
-            var rez = matrix.Multiply(vector);
+            var rez1 = matrix.MultiplyBy(vector);
+            var rez2 = matrix * vector;
+            var rez3 = Matrix.Multiply(matrix, vector);
 
-            rez.Should().NotBeNull();
-
-            rez[0].Should().Be(1);
-            rez[1].Should().Be(-3);
+            rez1.Should().BeEquivalentTo(expected);
+            rez2.Should().BeEquivalentTo(expected);
+            rez3.Should().BeEquivalentTo(expected);
         }
 
         #endregion
@@ -47,13 +49,12 @@ namespace AppliedMathLibrary.Tests.MatricesTests
         [Fact]
         public void MatrixMultiplyByVectors_DifferentDimentions_ExceptionThrown()
         {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var matrix = new Matrix(2, 3, 1, -1, 2, 0, -3, 1);
-                var vector = new Vector(2, 1);
+            var matrix = new Matrix(2, 3, 1, -1, 2, 0, -3, 1);
+            var vector = new Vector(2, 1);
 
-                matrix.Multiply(vector);
-            });
+            Assert.Throws<ArgumentException>(() => matrix.MultiplyBy(vector));
+            Assert.Throws<ArgumentException>(() => matrix * vector);
+            Assert.Throws<ArgumentException>(() => Matrix.Multiply(matrix, vector));
         }
 
         [Fact]
