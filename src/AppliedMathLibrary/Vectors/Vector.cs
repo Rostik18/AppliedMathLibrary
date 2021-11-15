@@ -148,6 +148,29 @@ namespace AppliedMathLibrary.Vectors
             return newVector;
         }
 
+        /// <summary> Add provided vector to this vector. Expect vectors with similar dimension </summary>
+        /// <returns> New vector as sum of this and provided </returns>
+        public Vector Add(Vector vector) => Sum(this, vector);
+
+        /// <summary> Add vector2 to vector1. Expect vectors with similar dimension </summary>
+        /// <returns> New vector as sum of two provided </returns>
+        public static Vector operator +(Vector vector1, Vector vector2) => Sum(vector1, vector2);
+
+        /// <summary> Add vector2 to vector1. Expect vectors with similar dimension </summary>
+        /// <returns> New vector as sum of two provided </returns>
+        public static Vector Sum(Vector vector1, Vector vector2)
+        {
+            if (vector1.N != vector2.N)
+                throw new ArgumentException("Vectors have different dimensions");
+
+            var newVector = new Vector(vector1.N);
+
+            for (var i = 0; i < vector1.N; i++)
+                newVector[i] = vector1.Elements[i] + vector2.Elements[i];
+
+            return newVector;
+        }
+
         /// <summary> Calculate Euclidean Norm of provided vector </summary>
         /// <returns> Euclidean Norm of provided vector </returns>
         public static double Norm(Vector vector) => vector.Norm();

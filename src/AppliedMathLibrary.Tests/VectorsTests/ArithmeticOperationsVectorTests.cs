@@ -56,6 +56,22 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             rez3.Should().BeEquivalentTo(vectorC);
         }
 
+        [Fact]
+        public void AddVectors_ProperDimensionAndValues_VectorsAdded()
+        {
+            var vectorA = new Vector(1, 2, 3);
+            var vectorB = new Vector(3, -3, -3);
+            var vectorC = new Vector(4, -1, 0);
+
+            var rez1 = vectorA.Add(vectorB);
+            var rez2 = vectorA + vectorB;
+            var rez3 = Vector.Sum(vectorA, vectorB);
+
+            rez1.Should().BeEquivalentTo(vectorC);
+            rez2.Should().BeEquivalentTo(vectorC);
+            rez3.Should().BeEquivalentTo(vectorC);
+        }
+
         #endregion
 
         #region Negative scenarios
@@ -69,6 +85,17 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             Assert.Throws<ArgumentException>(() => vectorA.Subtract(vectorB));
             Assert.Throws<ArgumentException>(() => vectorA - vectorB);
             Assert.Throws<ArgumentException>(() => Vector.Subtract(vectorA, vectorB));
+        }
+
+        [Fact]
+        public void AddDifferentVectors_ExceptionThrown()
+        {
+            var vectorA = new Vector(1, 2);
+            var vectorB = new Vector(3, 3, 3);
+
+            Assert.Throws<ArgumentException>(() => vectorA.Add(vectorB));
+            Assert.Throws<ArgumentException>(() => vectorA + vectorB);
+            Assert.Throws<ArgumentException>(() => Vector.Sum(vectorA, vectorB));
         }
 
         [Fact]
