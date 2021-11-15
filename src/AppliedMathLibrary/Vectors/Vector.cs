@@ -194,6 +194,30 @@ namespace AppliedMathLibrary.Vectors
             return newVector;
         }
 
+        /// <summary> Multiply this vector by scalar  </summary>
+        /// <returns> A new vector with elements as elements of provided vector divided by scalar </returns>
+        public Vector MultiplyBy(double scalar) => Multiply(this, scalar);
+
+        /// <summary> Multiply vector by scalar </summary>
+        /// <returns> A new vector with elements as elements of provided vector multiplied by scalar </returns>
+        public static Vector operator *(Vector vector, double scalar) => Multiply(vector, scalar);
+
+        /// <summary> Multiply vector by scalar </summary>
+        /// <returns> A new vector with elements as elements of provided vector multiplied by scalar </returns>
+        public static Vector operator *(double scalar, Vector vector) => Multiply(vector, scalar);
+
+        /// <summary> Multiply vector by scalar </summary>
+        /// <returns> A new vector with elements as elements of provided vector multiplied by scalar </returns>
+        public static Vector Multiply(Vector vector, double scalar)
+        {
+            var newVector = new Vector(vector.N);
+
+            for (var i = 0; i < vector.N; i++)
+                newVector[i] = vector.Elements[i] * scalar;
+
+            return newVector;
+        }
+
         /// <summary> Calculate Euclidean Norm of provided vector </summary>
         /// <returns> Euclidean Norm of provided vector </returns>
         public static double Norm(Vector vector) => vector.Norm();

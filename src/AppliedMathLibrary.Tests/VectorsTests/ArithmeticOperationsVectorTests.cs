@@ -88,6 +88,24 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             rez3.Should().BeEquivalentTo(expectedVector);
         }
 
+        [Fact]
+        public void MultiplyVectors_ProperDimensionAndValues_VectorMultiplied()
+        {
+            var vector = new Vector(2, 4, -4);
+            var scalar = 0.5;
+            var expectedVector = new Vector(1, 2, -2);
+
+            var rez1 = vector.MultiplyBy(scalar);
+            var rez2 = vector * scalar;
+            var rez3 = scalar * vector;
+            var rez4 = Vector.Multiply(vector, scalar);
+
+            rez1.Should().BeEquivalentTo(expectedVector);
+            rez2.Should().BeEquivalentTo(expectedVector);
+            rez3.Should().BeEquivalentTo(expectedVector);
+            rez4.Should().BeEquivalentTo(expectedVector);
+        }
+
         #endregion
 
         #region Negative scenarios
