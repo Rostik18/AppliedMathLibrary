@@ -72,6 +72,22 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             rez3.Should().BeEquivalentTo(vectorC);
         }
 
+        [Fact]
+        public void DivideVectors_ProperDimensionAndValues_VectorDevived()
+        {
+            var vector = new Vector(1, 2, -3);
+            var scalar = 0.5;
+            var expectedVector = new Vector(2, 4, -6);
+
+            var rez1 = vector.DivideBy(scalar);
+            var rez2 = vector / scalar;
+            var rez3 = Vector.Divide(vector, scalar);
+
+            rez1.Should().BeEquivalentTo(expectedVector);
+            rez2.Should().BeEquivalentTo(expectedVector);
+            rez3.Should().BeEquivalentTo(expectedVector);
+        }
+
         #endregion
 
         #region Negative scenarios
@@ -106,6 +122,17 @@ namespace AppliedMathLibrary.Tests.VectorsTests
 
             Assert.Throws<ArgumentException>(() => vectorA.DistanceTo(vectorB));
             Assert.Throws<ArgumentException>(() => Vector.DistanceBetween(vectorA, vectorB));
+        }
+
+        [Fact]
+        public void DivideVectorByZero_ExceptionThrown()
+        {
+            var vector = new Vector(1, 2);
+            var scalar = 0;
+
+            Assert.Throws<ArgumentException>(() => vector.DivideBy(scalar));
+            Assert.Throws<ArgumentException>(() => vector / scalar);
+            Assert.Throws<ArgumentException>(() => Vector.Divide(vector, scalar));
         }
 
         #endregion

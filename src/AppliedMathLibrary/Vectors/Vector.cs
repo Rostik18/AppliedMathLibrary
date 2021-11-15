@@ -171,6 +171,29 @@ namespace AppliedMathLibrary.Vectors
             return newVector;
         }
 
+        /// <summary> Divide current vector by scalar. Expect scalar not zero </summary>
+        /// <returns> A new vector with elements as elements of provided vector divided by scalar </returns>
+        public Vector DivideBy(double scalar) => Divide(this, scalar);
+
+        /// <summary> Divide vector by scalar. Expect scalar not zero </summary>
+        /// <returns> A new vector with elements as elements of provided vector divided by scalar </returns>
+        public static Vector operator /(Vector vector, double scalar) => Divide(vector, scalar);
+
+        /// <summary> Divide vector by scalar. Expect scalar not zero </summary>
+        /// <returns> A new vector with elements as elements of provided vector divided by scalar </returns>
+        public static Vector Divide(Vector vector, double scalar)
+        {
+            if (scalar == 0)
+                throw new ArgumentException("Scalar should be different than zero");
+
+            var newVector = new Vector(vector.N);
+
+            for (var i = 0; i < vector.N; i++)
+                newVector[i] = vector.Elements[i] / scalar;
+
+            return newVector;
+        }
+
         /// <summary> Calculate Euclidean Norm of provided vector </summary>
         /// <returns> Euclidean Norm of provided vector </returns>
         public static double Norm(Vector vector) => vector.Norm();
