@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AppliedMathLibrary.Matrices
 {
@@ -116,6 +117,9 @@ namespace AppliedMathLibrary.Matrices
         #endregion
 
         #region Properties
+
+        /// <summary> Is matrix number of rows and columns equal </summary>
+        public bool IsSquare => _n == _m;
 
         public int Rows => _n;
         public int Columns => _m;
@@ -270,6 +274,22 @@ namespace AppliedMathLibrary.Matrices
 
             return newMatrix;
         } */
+
+        /// <summary> Debug string representations </summary>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            for (int i = 0; i < _n; i++)
+            {
+                for (int j = 0; j < _m; j++)
+                {
+                    sb.Append($"{_elements[i, j]}; ");
+                }
+                sb.Append("  ");
+            }
+
+            return sb.ToString();
+        }
 
         #endregion
 
