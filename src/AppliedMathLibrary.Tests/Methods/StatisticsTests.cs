@@ -8,6 +8,8 @@ namespace AppliedMathLibrary.Tests.Methods
 {
     public class StatisticsTests
     {
+        private readonly double[] cubeSidesDropProbability = new double[] { 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6 };
+
         [Fact]
         public void StatisticsMean()
         {
@@ -43,6 +45,26 @@ namespace AppliedMathLibrary.Tests.Methods
             var randArray2 = Statistics.GenerateRandomArray(5, -2, 3);
             randArray2.Should().HaveCount(5);
             randArray2.All(x => x >= -2 && x <= 3).Should().BeTrue();
+        }
+
+        [Fact]
+        public void StatisticsMathExpectation()
+        {
+            Statistics.MathExpectation(new List<double> { 1, 2, 3, 4, 5, 6 }, cubeSidesDropProbability).Should().Be(3.5);
+        }
+
+        [Fact]
+        public void StatisticsVar()
+        {
+            Statistics.Var(new List<double> { 1, 2, 3, 4, 5, 6 }).Should().Be(2.9166666666666665);
+            Statistics.Var(new List<double> { 1, 2, 3, 4, 5, 6 }, cubeSidesDropProbability).Should().Be(2.9166666666666665);
+        }
+
+        [Fact]
+        public void StatisticsStd()
+        {
+            Statistics.Std(new List<double> { 1, 2, 3, 4, 5, 6 }).Should().Be(1.707825127659933);
+            Statistics.Std(new List<double> { 1, 2, 3, 4, 5, 6 }, cubeSidesDropProbability).Should().Be(1.707825127659933);
         }
 
         [Fact]

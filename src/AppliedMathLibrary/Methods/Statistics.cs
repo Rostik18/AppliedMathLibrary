@@ -37,6 +37,69 @@ namespace AppliedMathLibrary.Methods
             return frequencies.Where(x => x.Value == maxFrequency).Select(x => x.Key).ToArray();
         }
 
+        /// <summary> Calculate mathematical expectation of provided array of numbers. Example: (1, 1, 2, 5, 6, 6, 9) and (1/6, 1/6, 1/6, 1/6, 1/6, 1/6) -> 3.5 </summary>
+        /// <param name="items"> Values of random array </param>
+        /// <param name="vectorProbability"> Probabilities of values of random array. Positions should correspond to Positions of random array and sum of probabilities should be 1 </param>
+        public static double MathExpectation(IEnumerable<double> items, IEnumerable<double> vectorProbability)
+        {
+            var itemsCopy = items.ToArray();
+            var vectorProbabilityCopy = vectorProbability.ToArray();
+
+            if (itemsCopy.Length != vectorProbabilityCopy.Length)
+                throw new ArgumentException("items and vectorProbability has different dimension");
+            if (Math.Round(vectorProbabilityCopy.Sum(), 3) != 1)
+                throw new ArgumentException("Sum of elements of vectorProbability should be 1");
+
+            var sum = 0.0;
+            for (int i = 0; i < itemsCopy.Length; i++)
+                sum += itemsCopy[i] * vectorProbabilityCopy[i];
+
+            return sum;
+        }
+
+        /// <summary> Calculate variance of provided array of numbers. The expectation of the squared deviation. Example: (1, 2, 3, 4, 5, 6) -> 2.9 </summary>
+        public static double Var(IEnumerable<double> items)
+        {
+            var mean = Mean(items);
+            var p = 1.0 / items.Count();
+            var sum = 0.0;
+
+            foreach (var x in items)
+            {
+                var diff = x - mean;
+                sum += diff * diff * p;
+            }
+
+            return sum;
+        }
+
+        /// <summary> Calculate variance of provided array of numbers. The expectation of the squared deviation. Example: (1, 2, 3, 4, 5, 6) -> 2.9 </summary>
+        /// <param name="items"> Values of random array </param>
+        /// <param name="vectorProbability"> Probabilities of values of random array. Positions should correspond to Positions of random array and sum of probabilities should be 1 </param>
+        public static double Var(IEnumerable<double> items, IEnumerable<double> vectorProbability)
+        {
+            var itemsCopy = items.ToArray();
+            var vectorProbabilityCopy = vectorProbability.ToArray();
+            var mean = MathExpectation(items, vectorProbability);
+            var sum = 0.0;
+
+            for (int i = 0; i < itemsCopy.Length; i++)
+            {
+                var diff = itemsCopy[i] - mean;
+                sum += diff * diff * vectorProbabilityCopy[i];
+            }
+
+            return sum;
+        }
+
+        /// <summary> Calculate standard deviation of provided array of numbers. Sqrt of items variance. Example: (1, 2, 3, 4, 5, 6) -> 1.71 </summary>
+        public static double Std(IEnumerable<double> items) => Math.Sqrt(Var(items));
+
+        /// <summary> Calculate standard deviation of provided array of numbers. Sqrt of items variance. Example: (1, 2, 3, 4, 5, 6) -> 1.71 </summary>
+        /// <param name="items"> Values of random array </param>
+        /// <param name="vectorProbability"> Probabilities of values of random array. Positions should correspond to Positions of random array and sum of probabilities should be 1 </param>
+        public static double Std(IEnumerable<double> items, IEnumerable<double> vectorProbability) => Math.Sqrt(Var(items, vectorProbability));
+
         /// <summary> Generate array of provided length with random numbers in defined range. By default in 0.0 - 1.0 range </summary>
         public static List<double> GenerateRandomArray(int length, double min = 0, double max = 1)
         {
