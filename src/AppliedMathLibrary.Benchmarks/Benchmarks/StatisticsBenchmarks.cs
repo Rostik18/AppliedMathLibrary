@@ -1,31 +1,39 @@
 ﻿using AppliedMathLibrary.Methods;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Diagnosers;
-using System;
-using System.Collections.Generic;
 
 namespace AppliedMathLibrary.Benchmarks
 {
     [MemoryDiagnoser]
     public class StatisticsBenchmarks
     {
-        private readonly int n;
-        private readonly List<double> generalSample;
+        private const int N = 1000;
+        private readonly List<double> generalSample1000;
 
         public StatisticsBenchmarks()
         {
             var random = new Random();
-            n = random.Next(1, 100);
-            var N = random.Next(100, 1000);
-            generalSample = new List<double>(N);
+            generalSample1000 = new List<double>(N);
             for (int i = 0; i < N; i++)
-                generalSample.Add(random.Next(1000));
+                generalSample1000.Add(random.Next(N));
         }
 
         [Benchmark]
-        public List<double> RandomSampleByRule1() => Statistics.RandomSampleByRule1(generalSample, n);
+        public List<double> RandomSampleByRule1_n100_N1000() => Statistics.RandomSampleByRule1(generalSample1000, 100);
 
         [Benchmark]
-        public List<double> RandomSampleByRule2() => Statistics.RandomSampleByRule2(generalSample, n);
+        public List<double> RandomSampleByRule2_n100_N1000() => Statistics.RandomSampleByRule2(generalSample1000, 100);
+
+        [Benchmark]
+        public List<double> RandomSampleByRule1_n500_N1000() => Statistics.RandomSampleByRule1(generalSample1000, 500);
+
+        [Benchmark]
+        public List<double> RandomSampleByRule2_n500_N1000() => Statistics.RandomSampleByRule2(generalSample1000, 500);
+
+        [Benchmark]
+        public List<double> RandomSampleByRule1_n900_N1000() => Statistics.RandomSampleByRule1(generalSample1000, 900);
+
+        [Benchmark]
+        public List<double> RandomSampleByRule2_n900_N1000() => Statistics.RandomSampleByRule2(generalSample1000, 900);
     }
 }
