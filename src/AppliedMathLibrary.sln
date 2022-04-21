@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppliedMathLibrary", "AppliedMathLibrary\AppliedMathLibrary.csproj", "{E1355BF4-1A63-43C7-B3B1-276C60598F79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppliedMathLibrary.Tests", "AppliedMathLibrary.Tests\AppliedMathLibrary.Tests.csproj", "{93131681-E903-4F85-A021-02C6991E0915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppliedMathLibrary.Tests", "AppliedMathLibrary.Tests\AppliedMathLibrary.Tests.csproj", "{93131681-E903-4F85-A021-02C6991E0915}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppliedMathLibrary.Benchmarks", "AppliedMathLibrary.Benchmarks\AppliedMathLibrary.Benchmarks.csproj", "{C2971723-8182-4732-8692-ECD5A4120CDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{93131681-E903-4F85-A021-02C6991E0915}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93131681-E903-4F85-A021-02C6991E0915}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93131681-E903-4F85-A021-02C6991E0915}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2971723-8182-4732-8692-ECD5A4120CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2971723-8182-4732-8692-ECD5A4120CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2971723-8182-4732-8692-ECD5A4120CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2971723-8182-4732-8692-ECD5A4120CDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
