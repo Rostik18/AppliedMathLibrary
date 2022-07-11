@@ -4,7 +4,7 @@ using BenchmarkDotNet.Diagnosers;
 
 namespace AppliedMathLibrary.Benchmarks
 {
-    [MemoryDiagnoser]
+    [MemoryDiagnoser(false)]
     public class StatisticsBenchmarks
     {
         private const int N = 1000;
