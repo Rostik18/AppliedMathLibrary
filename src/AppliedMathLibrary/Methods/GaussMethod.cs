@@ -1,6 +1,5 @@
 ﻿using AppliedMathLibrary.Matrices;
 using AppliedMathLibrary.Vectors;
-using System;
 
 namespace AppliedMathLibrary.Methods
 {
