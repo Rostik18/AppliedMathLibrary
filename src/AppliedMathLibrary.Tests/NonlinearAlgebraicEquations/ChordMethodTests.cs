@@ -34,6 +34,13 @@ namespace AppliedMathLibrary.Tests.NonlinearAlgebraicEquations
             var actualResult4 = ChordMethod.SolveEquation(f2, x);
             actualResult4.IsSuccess.Should().BeTrue();
             actualResult4.Value.Should().Be(expectedResult4);
+
+            var f3 = (double x) => x * x - 1;
+
+            var expectedResult5 = 1.0000000000000002;
+            var actualResult5 = ChordMethod.SolveEquation(f3, x);
+            actualResult5.IsSuccess.Should().BeTrue();
+            actualResult5.Value.Should().Be(expectedResult5);
         }
 
         #region Negative scenarios
