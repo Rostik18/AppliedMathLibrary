@@ -12,23 +12,16 @@ namespace AppliedMathLibrary.NonlinearAlgebraicEquations
         /// Chords method for solving nonlinear algebraic equation of first dimension (R^1 -> R^1).
         /// </summary>
         /// <param name="f"> Nonlinear function R^1 -> R^1 </param>
-        /// <param name="a"> Left side of range where function is defined </param>
-        /// <param name="b"> Right side of range where function is defined </param>
+        /// <param name="x"> Initial approximation </param>
         /// <param name="eps"> Optional calculation accuracy parameter </param>
         /// <param name="ct"> Cancellation token. 5 seconds by default </param>
         /// <returns> Calculation result </returns>
-        public static Result<double> SolveEquation(Func<double, double> f, double a, double b, [Range(0.1, 1)] double eps = Constants.Epsilon, CancellationToken ct = default)
+        public static Result<double> SolveEquation(Func<double, double> f, double x = 1, [Range(0.1, 1)] double eps = Constants.Epsilon, CancellationToken ct = default)
         {
             if (ct == default) ct = new CancellationTokenSource(Constants.Timeout5s).Token;
 
-            var xp = a;
-            var c = b;
-
-            if (f(a) > f(b))
-            {
-                xp = b;
-                c = a;
-            }
+            var xp1 = x;
+            var xp2 = x - eps;
 
             double iterationIncrease;
 
@@ -36,18 +29,19 @@ namespace AppliedMathLibrary.NonlinearAlgebraicEquations
             {
                 if (ct.IsCancellationRequested) return Result.Failure<double>("Method execution canceled");
 
-                var fc = f(c);
-                var fxp = f(xp);
+                var fxp1 = f(xp1);
+                var fxp2 = f(xp2);
 
-                var xn = xp - fxp * ((c - xp) / (fc - fxp));
+                var xn = xp1 - fxp1 * ((xp1 - xp2) / (fxp1 - fxp2));
 
-                iterationIncrease = Math.Abs(xn - xp);
+                iterationIncrease = Math.Abs(xn - xp1);
 
-                xp = xn;
+                xp2 = xp1;
+                xp1 = xn;
             }
             while (iterationIncrease > eps);
 
-            return xp;
+            return xp1;
         }
     }
 }
