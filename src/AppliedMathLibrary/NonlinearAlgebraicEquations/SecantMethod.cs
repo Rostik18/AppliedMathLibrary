@@ -6,10 +6,10 @@ namespace AppliedMathLibrary.NonlinearAlgebraicEquations
     /// Chords method (or method of linear interpolation, or the method of proportional parts) is an 
     /// iterative numerical method for finding the approximate roots of a nonlinear algebraic equation F(x) = 0. 
     /// </summary>
-    public static class ChordMethod
+    public static class SecantMethod
     {
         /// <summary>
-        /// Chords method for solving nonlinear algebraic equation of first dimension (R^1 -> R^1).
+        /// Secant (or Chord) method for solving nonlinear algebraic equation of first dimension (R^1 -> R^1).
         /// </summary>
         /// <param name="f"> Nonlinear function R^1 -> R^1 </param>
         /// <param name="x"> Initial approximation </param>

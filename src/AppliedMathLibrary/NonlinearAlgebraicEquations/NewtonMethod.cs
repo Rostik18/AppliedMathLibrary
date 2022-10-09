@@ -10,7 +10,7 @@ namespace AppliedMathLibrary.NonlinearAlgebraicEquations
     {
         /// <summary>
         /// Newton method for solving nonlinear algebraic equation of first dimension (R^1 -> R^1).
-        /// In case you don't have derivative function - use <see cref="ChordMethod"/>
+        /// In case you don't have derivative function - use <see cref="SecantMethod"/>
         /// </summary>
         /// <param name="f"> Nonlinear function R^1 -> R^1 </param>
         /// <param name="fDerivative"> Derivative of function f. Make sure you calculated it right </param>
