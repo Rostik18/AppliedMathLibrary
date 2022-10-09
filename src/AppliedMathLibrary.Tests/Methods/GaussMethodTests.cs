@@ -20,7 +20,8 @@ namespace AppliedMathLibrary.Tests.Methods
 
             var actualResult = GaussMethod.SolveMatrixSystem(A, b, out var actualDet);
 
-            actualResult.Should().BeEquivalentTo(expectedResult);
+            actualResult.IsSuccess.Should().BeTrue();
+            actualResult.Value.Should().BeEquivalentTo(expectedResult);
             actualDet.Should().Be(expectedDet);
         }
 

@@ -14,11 +14,14 @@ namespace AppliedMathLibrary.Methods
         /// <param name="A"> Square matrix of system coefficients </param>
         /// <param name="b"> Free members Vector </param>
         /// <param name="detA"> Determinant of matrix </param>
-        /// <returns> Vetror of system solution </returns>
-        public static Vector SolveMatrixSystem(Matrix A, Vector b, out double detA)
+        /// <param name="ct"> Cancellation token. 5 seconds by default </param>
+        /// <returns> Result of vetror of system solution </returns>
+        public static Result<Vector> SolveMatrixSystem(Matrix A, Vector b, out double detA, CancellationToken ct = default)
         {
             if (!A.IsSquare || A.Rows != b.Dimension)
                 throw new ArgumentException($"Vector dimension should be equal to matrix rows count");
+
+            if (ct == default) ct = new CancellationTokenSource(Constants.Timeout5s).Token;
 
             var copyA = new Matrix(A);
             var copyb = new Vector(b);
@@ -28,6 +31,8 @@ namespace AppliedMathLibrary.Methods
 
             for (int k = 0; k < copyA.Rows - 1; k++)
             {
+                if (ct.IsCancellationRequested) return Result.Failure<Vector>("Method execution canceled");
+
                 if (copyA[k, k] == 0)
                 {
                     SwapLines(k, copyA, copyb);
