@@ -3,7 +3,7 @@
 namespace AppliedMathLibrary.NonlinearAlgebraicEquations
 {
     /// <summary> 
-    /// Chords method (or method of linear interpolation, or the method of proportional parts) is an 
+    /// Secant method (or Chord method, or method of linear interpolation, or the method of proportional parts) is an 
     /// iterative numerical method for finding the approximate roots of a nonlinear algebraic equation F(x) = 0. 
     /// </summary>
     public static class SecantMethod

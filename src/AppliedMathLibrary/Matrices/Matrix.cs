@@ -1,8 +1,5 @@
 ﻿using AppliedMathLibrary.Vectors;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace AppliedMathLibrary.Matrices
@@ -87,7 +84,7 @@ namespace AppliedMathLibrary.Matrices
         {
             _n = matrix._n;
             _m = matrix._m;
-            _elements = matrix._elements.Clone() as double[,];
+            _elements = matrix._elements.Clone() as double[,] ?? new double[_n, _m];
         }
 
         /// <summary> Create new nxm matrix based on n provided vectors with m dimension. All vectors should have the same dimension </summary>

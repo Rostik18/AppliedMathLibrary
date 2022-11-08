@@ -1,7 +1,4 @@
 ﻿using AppliedMathLibrary.Vectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AppliedMathLibrary.Methods
 {
@@ -9,6 +6,7 @@ namespace AppliedMathLibrary.Methods
     public static class SlaterMethods
     {
         /// <summary> Compares vectors with equal dimension by Slater principle.  True - if this vector is better. False - in all other cases </summary>
+        /// <param name="current"> Base, current vector for comparison </param>
         /// <param name="vector"> Vector for comparison </param>
         /// <returns> True - if this vector is better by Slater than provided. False - in all other cases </returns>
         public static bool BetterBySlaterThan(this Vector current, Vector vector)

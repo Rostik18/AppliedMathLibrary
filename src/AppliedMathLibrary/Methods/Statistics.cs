@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace AppliedMathLibrary.Methods
+﻿namespace AppliedMathLibrary.Methods
 {
     /// <summary> Simple statistics static methods </summary>
     public static class Statistics

@@ -1,11 +1,11 @@
 ﻿using AppliedMathLibrary.Points;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AppliedMathLibrary.Vectors
 {
+    /// <summary>
+    /// Represents the basic implementation of a mathematical vector of any dimension.
+    /// </summary>
     public class Vector : IEnumerable<double>
     {
         protected readonly int N;
@@ -28,7 +28,7 @@ namespace AppliedMathLibrary.Vectors
         /// <param name="values">n provided values</param>
         public Vector(params double[] values) : this(values.Length)
         {
-            Elements = values.Clone() as double[];
+            Elements = values.Clone() as double[] ?? Array.Empty<double>();
         }
 
         /// <summary> Create a new vector based on provided </summary>
@@ -36,7 +36,7 @@ namespace AppliedMathLibrary.Vectors
         public Vector(Vector vector)
         {
             N = vector.N;
-            Elements = vector.Elements.Clone() as double[];
+            Elements = vector.Elements.Clone() as double[] ?? Array.Empty<double>();
         }
 
         /// <summary> Create a new vector based on provided point </summary>
@@ -55,7 +55,12 @@ namespace AppliedMathLibrary.Vectors
 
         #region Properties
 
+        /// <summary> Vector dimension </summary>
         public int Dimension => N;
+
+        /// <summary> Simple index implementation </summary>
+        /// <param name="i"> Index of element in point </param>
+        /// <returns> Point element under index i </returns>
         public double this[int i]
         {
             get => Elements[i];
