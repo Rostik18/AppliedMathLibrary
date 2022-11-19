@@ -18,8 +18,10 @@ namespace AppliedMathLibrary.Methods
         /// <returns> Result of vetror of system solution </returns>
         public static Result<Vector> SolveMatrixSystem(Matrix A, Vector b, out double detA, CancellationToken ct = default)
         {
+            detA = 1.0;
+
             if (!A.IsSquare || A.Rows != b.Dimension)
-                throw new ArgumentException($"Vector dimension should be equal to matrix rows count");
+                return Result.Failure<Vector>("Vector dimension should be equal to matrix rows count");
 
             if (ct == default) ct = new CancellationTokenSource(Constants.Timeout5s).Token;
 
@@ -27,7 +29,6 @@ namespace AppliedMathLibrary.Methods
             var copyb = new Vector(b);
             var x = new Vector(copyA.Rows);
             var swapCount = 0;
-            detA = 1.0;
 
             for (int k = 0; k < copyA.Rows - 1; k++)
             {
