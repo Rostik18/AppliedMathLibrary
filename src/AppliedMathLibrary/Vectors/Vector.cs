@@ -3,9 +3,7 @@ using System.Collections;
 
 namespace AppliedMathLibrary.Vectors
 {
-    /// <summary>
-    /// Represents the basic implementation of a mathematical vector of any dimension.
-    /// </summary>
+    /// <summary> Represents the basic implementation of a mathematical vector of any dimension. </summary>
     public class Vector : IEnumerable<double>
     {
         protected readonly int N;
@@ -265,9 +263,10 @@ namespace AppliedMathLibrary.Vectors
 
         #region IEnumerableImplementation
 
+        /// <summary> Default implementation of GetEnumerator </summary>
         public IEnumerator<double> GetEnumerator()
         {
-            return Elements.Cast<double>().GetEnumerator();
+            return ((IEnumerable<double>)Elements).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -9,7 +9,7 @@ namespace AppliedMathLibrary.Matrices
     {
         private readonly int _n;
         private readonly int _m;
-        private double[,] _elements;
+        private readonly double[,] _elements;
 
         #region Constructors
 
@@ -292,6 +292,7 @@ namespace AppliedMathLibrary.Matrices
 
         #region IEnumerableImplementation
 
+        /// <summary> Default implementation of GetEnumerator </summary>
         public IEnumerator<double> GetEnumerator()
         {
             return _elements.Cast<double>().GetEnumerator();

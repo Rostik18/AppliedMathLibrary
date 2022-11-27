@@ -75,10 +75,7 @@ namespace AppliedMathLibrary.Tests.VectorsTests
         [InlineData(-1)]
         public void CreateEmptyVector_ExceptionThrown(int n)
         {
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var vector = new Vector(n);
-            });
+            Assert.Throws<ArgumentException>(() => new Vector(n));
         }
 
         #endregion

@@ -3,13 +3,11 @@ using System.Collections;
 
 namespace AppliedMathLibrary.Points
 {
-    /// <summary>
-    /// Represents the basic implementation of a mathematical point of any dimension. Similar to <see cref="Vector"/>
-    /// </summary>
+    /// <summary> Represents the basic implementation of a mathematical point of any dimension. Similar to <see cref="Vector"/> </summary>
     public class Point : IEnumerable<double>
     {
         private readonly int _n;
-        private double[] _elements;
+        private readonly double[] _elements;
 
         #region Constructors
 
@@ -75,9 +73,10 @@ namespace AppliedMathLibrary.Points
 
         #region IEnumerableImplementation
 
+        /// <summary> Default implementation of GetEnumerator </summary>
         public IEnumerator<double> GetEnumerator()
         {
-            return _elements.Cast<double>().GetEnumerator();
+            return ((IEnumerable<double>)_elements).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
