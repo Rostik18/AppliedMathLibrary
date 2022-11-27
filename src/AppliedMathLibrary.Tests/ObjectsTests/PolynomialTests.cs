@@ -27,6 +27,27 @@ namespace AppliedMathLibrary.Tests.ObjectsTests
         }
 
         [Theory]
+        [InlineData(new[] { 1.0, 2 }, 1, new[] { 1.0, 2 })]
+        [InlineData(new[] { 1.0, 2 }, 0, new[] { 0.0, 0 })]
+        [InlineData(new[] { 1.0, 2 }, -1, new[] { -1.0, -2 })]
+        [InlineData(new[] { 1.0, 2 }, 2.5, new[] { 2.5, 5 })]
+        public void MultiplyPolynomByScalar_CorrectProduct(double[] coeff, double scalar, double[] expected)
+        {
+            var pol = new Polynomial(coeff);
+            var expectedPol = new Polynomial(expected);
+
+            var result1 = pol.MultiplyBy(scalar);
+            var result2 = Polynomial.Multiply(pol, scalar);
+            var result3 = pol * scalar;
+            var result4 = scalar * pol;
+
+            result1.Should().BeEquivalentTo(expectedPol);
+            result2.Should().BeEquivalentTo(expectedPol);
+            result3.Should().BeEquivalentTo(expectedPol);
+            result4.Should().BeEquivalentTo(expectedPol);
+        }
+
+        [Theory]
         [InlineData(new[] { 1.0, 2 }, new[] { -2.0, 1 }, new[] { -1.0, 3 })]
         [InlineData(new[] { 0.0, 5, -3 }, new[] { 1.0, 0, 1 }, new[] { 1.0, 5, -2 })]
         [InlineData(new[] { 0.0, 5, -3, 2 }, new[] { 1.0, 0, 1 }, new[] { 1.0, 5, -2, 2 })]

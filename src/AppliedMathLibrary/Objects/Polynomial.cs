@@ -75,13 +75,39 @@ namespace AppliedMathLibrary.Objects
             return new(newCoeff);
         }
 
+        /// <summary> Multiply each element of provided polynomial by scalar </summary>
+        /// <returns> New polynomial as provided polynomial multiplyed by scalar </returns>
+        public static Polynomial Multiply(Polynomial polynomial, double scalar)
+        {
+            var newPol = new Polynomial(polynomial);
+
+            for (int i = 0; i < newPol._coefficients.Length; i++)
+            {
+                newPol._coefficients[i] *= scalar;
+            }
+
+            return newPol;
+        }
+
         /// <summary> Multiply this polynomial by provided </summary>
         /// <returns> New polynomial as a product of this and provided </returns>
         public Polynomial Multiply(Polynomial other) => Multiply(this, other);
 
+        /// <summary> Multiply each element of this polynomial by scalar </summary>
+        /// <returns> New polynomial as a result of multiplying </returns>
+        public Polynomial MultiplyBy(double scalar) => Multiply(this, scalar);
+
         /// <summary> Multiply two polynomials </summary>
         /// <returns> New polynomial as a product of two provided </returns>
         public static Polynomial operator *(Polynomial first, Polynomial second) => Multiply(first, second);
+
+        /// <summary> Multiply each element of provided polynomial by scalar </summary>
+        /// <returns> New polynomial as provided polynomial multiplyed by scalar </returns>
+        public static Polynomial operator *(Polynomial polynomial, double scalar) => Multiply(polynomial, scalar);
+
+        /// <summary> Multiply each element of provided polynomial by scalar </summary>
+        /// <returns> New polynomial as provided polynomial multiplyed by scalar </returns>
+        public static Polynomial operator *(double scalar, Polynomial polynomial) => Multiply(polynomial, scalar);
 
         /// <summary> Sum two polynomials </summary>
         /// <returns> New polynomial as a sum of two provided </returns>
