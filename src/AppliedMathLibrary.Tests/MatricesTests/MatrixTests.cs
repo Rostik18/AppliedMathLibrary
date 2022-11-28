@@ -45,7 +45,57 @@ namespace AppliedMathLibrary.Tests.MatricesTests
             actualResult3.Should().BeEquivalentTo(expectedMatrix);
         }
 
+        [Theory]
+        [InlineData(1, new[] { 2.0 }, new[] { 0.5 })]
+        [InlineData(3, new[] { 3.0, 0, 2, 2, 0, -2, 0, 1, 1 }, new[] { 0.2, 0.2, 0, -0.2, 0.3, 1, 0.2, -0.3, 0 })]
+        public void CalculateInversedMatrix_ResultCorrect(int n, double[] values, double[] expectedValues)
+        {
+            var matrix = new Matrix(n, values);
+            var expectedMatrix = new Matrix(n, expectedValues);
+
+            var actualResult1 = matrix.CalculateInverse();
+            var actualResult2 = Matrix.CalculateInverse(matrix);
+
+            actualResult1.IsSuccess.Should().BeTrue();
+            actualResult2.IsSuccess.Should().BeTrue();
+
+            actualResult1.Value.Should().BeEquivalentTo(expectedMatrix);
+            actualResult2.Value.Should().BeEquivalentTo(expectedMatrix);
+        }
+
         #region Negative scenarios
+
+        [Fact]
+        public void CalculateInversedMatrixFromNotSquareMatrix_ResultIsFailure()
+        {
+            var matrix = new Matrix(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 });
+
+            var actualResult1 = matrix.CalculateInverse();
+            var actualResult2 = Matrix.CalculateInverse(matrix);
+
+            actualResult1.IsSuccess.Should().BeFalse();
+            actualResult2.IsSuccess.Should().BeFalse();
+        }
+
+        [Fact]
+        public void CalculateInversedMatrixFromZeroDetMatrix_ResultIsFailure()
+        {
+            var matrix = new Matrix(2, new[] { 0.0, 2, 0, 4 });
+
+            var actualResult1 = matrix.CalculateInverse();
+            var actualResult2 = Matrix.CalculateInverse(matrix);
+
+            actualResult1.IsSuccess.Should().BeFalse();
+            actualResult2.IsSuccess.Should().BeFalse();
+        }
+
+        [Fact]
+        public void DivideMatrixByZero_ExceptionThrown()
+        {
+            Assert.Throws<DivideByZeroException>(() => new Matrix(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }).DivideBy(0));
+            Assert.Throws<DivideByZeroException>(() => Matrix.Divide(new(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }), 0));
+            Assert.Throws<DivideByZeroException>(() => new Matrix(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }) / 0);
+        }
 
         [Fact]
         public void CalculateDeterminantFromNotSquareMatrix_ResultIsFailure()
@@ -57,14 +107,6 @@ namespace AppliedMathLibrary.Tests.MatricesTests
 
             result1.IsSuccess.Should().BeFalse();
             result2.IsSuccess.Should().BeFalse();
-        }
-
-        [Fact]
-        public void DivideMatrixByZero_ExceptionThrown()
-        {
-            Assert.Throws<DivideByZeroException>(() => new Matrix(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }).DivideBy(0));
-            Assert.Throws<DivideByZeroException>(() => Matrix.Divide(new(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }), 0));
-            Assert.Throws<DivideByZeroException>(() => new Matrix(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }) / 0);
         }
 
         #endregion

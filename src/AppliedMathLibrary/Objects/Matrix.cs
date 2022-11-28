@@ -313,33 +313,52 @@ namespace AppliedMathLibrary.Objects
             return det;
         }
 
-        /// <summary> Calculates and returns a new inverse matrix if matrix is square. ONLY FOR 3x3 MATRICES </summary>
-        /// <returns> new inverse matrix </returns>
-        /* public Matrix CalculateInverse()
+        /// <summary> Calculate inverse matrix by the minors method. Make sure the matrix is square and has nonzero determinant </summary>
+        /// <returns> Result of matrix inversion </returns>
+        public Result<Matrix> CalculateInverse() => CalculateInverse(this);
+
+        /// <summary> Calculate inverse matrix by the minors method. Make sure the matrix is square and has nonzero determinant </summary>
+        /// <returns> Result of matrix inversion </returns>
+        public static Result<Matrix> CalculateInverse(Matrix matrix)
+        {
+            if (!matrix.IsSquare) return Result.Failure<Matrix>("Cannot calculate determinant of matrix which is not square");
+
+            var detResult = CalculateDeterminant(matrix);
+
+            if (detResult.IsFailure) return Result.Failure<Matrix>(detResult.Error);
+            if (detResult.Value == 0) return Result.Failure<Matrix>("Determinant of initial matrix is 0. Inverse matrix does not exist");
+            if (matrix._n < 2) return new Matrix(1, 1.0 / matrix[0, 0]);
+
+            var minorsMatrix = CalculateMinorsMatrix(matrix);
+
+            // Cofactors
+            for (int i = 0; i < minorsMatrix._n; i++)
             {
-            if (_n != _m && _n != 3)
-                throw new ArgumentException();
-
-            var newMatrix = new Matrix(_n, _m);
-            var determinant = 0.0;
-
-            //finding determinant
-            for (var i = 0; i < _n; i++)
-                determinant += (_elements[0, i] * (_elements[1, (i + 1) % 3] * _elements[2, (i + 2) % 3] -
-                                                   _elements[1, (i + 2) % 3] * _elements[2, (i + 1) % 3]));
-
-            //Inverse of matrix
-            for (var i = 0; i < _n; i++)
+                for (int j = 0; j < minorsMatrix._m; j++)
                 {
-                for (var j = 0; j < 3; j++)
-                    newMatrix[i, j] =
-                        ((_elements[(j + 1) % 3, (i + 1) % 3] * _elements[(j + 2) % 3, (i + 2) % 3]) -
-                         (_elements[(j + 1) % 3, (i + 2) % 3] * _elements[(j + 2) % 3, (i + 1) % 3])) /
-                        determinant;
+                    if ((i + j) % 2 == 1)
+                        minorsMatrix[i, j] *= -1;
+                }
             }
 
-            return newMatrix;
-        } */
+            // Adjugate
+            return minorsMatrix.Transpose() / detResult.Value;
+        }
+
+        private static Matrix CalculateMinorsMatrix(Matrix matrix)
+        {
+            var minorsMatrix = new Matrix(matrix._n, matrix._m);
+
+            for (int i = 0; i < matrix._n; i++)
+            {
+                for (int j = 0; j < matrix._m; j++)
+                {
+                    minorsMatrix[i, j] = CalculateDeterminant(CutRowAndColumn(matrix, i, j)).Value;
+                }
+            }
+
+            return minorsMatrix;
+        }
 
         private static Matrix CutRowAndColumn(Matrix matrix, int rowIndex, int columnIndex)
         {
