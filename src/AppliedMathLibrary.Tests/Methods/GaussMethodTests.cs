@@ -1,8 +1,6 @@
-﻿using AppliedMathLibrary.Matrices;
-using AppliedMathLibrary.Methods;
-using AppliedMathLibrary.Vectors;
+﻿using AppliedMathLibrary.Methods;
+using AppliedMathLibrary.Objects;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace AppliedMathLibrary.Tests.Methods

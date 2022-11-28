@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AppliedMathLibrary.Methods;
-using AppliedMathLibrary.Vectors;
+using AppliedMathLibrary.Objects;
 using FluentAssertions;
 using Xunit;
 

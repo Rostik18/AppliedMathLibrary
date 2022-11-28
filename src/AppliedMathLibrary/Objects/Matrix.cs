@@ -64,7 +64,7 @@ namespace AppliedMathLibrary.Objects
         }
 
         /// <summary> Create nxn matrix whose elements are zeros </summary>
-        /// <param name="n">Matrix rows and columns number</param>
+        /// <param name="n"> Matrix rows and columns number </param>
         public Matrix(int n) : this(n, n) { }
 
         /// <summary> Create nxn matrix with provided values. Expect n * n values </summary>
@@ -249,6 +249,18 @@ namespace AppliedMathLibrary.Objects
             }
 
             return newVector;
+        }
+
+        /// <summary> Created identity (I) nxn matrix with 1 on main diagonal </summary>
+        /// <param name="n"> Matrix rows and columns number </param>
+        /// <returns> New identity (I) nxn matrix with 1 on main diagonal </returns>
+        public static Matrix CreateIdentityMatrix(int n)
+        {
+            var matrix = new Matrix(n);
+
+            for (int i = 0; i < n; i++) matrix[i, i] = 1;
+
+            return matrix;
         }
 
         /// <summary> Calculates and returns a new inverse matrix if matrix is square. ONLY FOR 3x3 MATRICES </summary>
