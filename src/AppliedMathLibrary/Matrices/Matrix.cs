@@ -118,8 +118,16 @@ namespace AppliedMathLibrary.Matrices
         /// <summary> Is matrix number of rows and columns equal </summary>
         public bool IsSquare => _n == _m;
 
+        /// <summary> Number of rows this matrix has </summary>
         public int Rows => _n;
+
+        /// <summary> Number of columns this matrix has </summary>
         public int Columns => _m;
+
+        /// <summary> Default two dimension indexer </summary>
+        /// <param name="i"> Index of row </param>
+        /// <param name="j"> Index of column </param>
+        /// <returns> Value of matrix under index i and j </returns>
         public double this[int i, int j]
         {
             get => _elements[i, j];
