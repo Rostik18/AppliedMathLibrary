@@ -1,5 +1,4 @@
-﻿using AppliedMathLibrary.Matrices;
-using AppliedMathLibrary.Vectors;
+﻿using AppliedMathLibrary.Objects;
 
 namespace AppliedMathLibrary.Methods
 {
@@ -93,13 +92,10 @@ namespace AppliedMathLibrary.Methods
             }
             for (int j = 0; j < A.Rows; j++)
             {
-                double swap_tmp = A[k, j];
-                A[k, j] = A[swapRow, j];
-                A[swapRow, j] = swap_tmp;
+                (A[swapRow, j], A[k, j]) = (A[k, j], A[swapRow, j]);
             }
-            double tmp_b = b[k];
-            b[k] = b[swapRow];
-            b[swapRow] = tmp_b;
+
+            (b[swapRow], b[k]) = (b[k], b[swapRow]);
         }
     }
 }

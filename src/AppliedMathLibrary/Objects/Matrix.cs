@@ -1,8 +1,7 @@
-﻿using AppliedMathLibrary.Vectors;
-using System.Collections;
+﻿using System.Collections;
 using System.Text;
 
-namespace AppliedMathLibrary.Matrices
+namespace AppliedMathLibrary.Objects
 {
     /// <summary> Matrix nxm with double elements </summary>
     public class Matrix : IEnumerable<double>

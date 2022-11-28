@@ -1,4 +1,4 @@
-﻿using AppliedMathLibrary.Vectors;
+﻿using AppliedMathLibrary.Objects;
 
 namespace AppliedMathLibrary.Methods
 {
