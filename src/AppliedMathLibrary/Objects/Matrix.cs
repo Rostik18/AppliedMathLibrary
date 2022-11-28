@@ -263,6 +263,32 @@ namespace AppliedMathLibrary.Objects
             return matrix;
         }
 
+        /// <summary> Recursively calculating determinant of this matrix. Make sure its square </summary>
+        /// <returns> Result of determinant calculation </returns>
+        public Result<double> CalculateDeterminant() => CalculateDeterminant(this);
+
+        /// <summary> Recursively calculating determinant of a square matrix </summary>
+        /// <param name="matrix"> The square matrix </param>
+        /// <returns> Result of determinant calculation </returns>
+        public static Result<double> CalculateDeterminant(Matrix matrix)
+        {
+            if (!matrix.IsSquare) return Result.Failure<double>("Cannot calculate determinant of matrix which is not square");
+
+            if (matrix._n == 1) return matrix[0, 0];
+            if (matrix._n == 2) return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+
+            var det = 0.0;
+
+            for (int i = 0; i < matrix._n; i++)
+            {
+                if (matrix[0, i] == 0) continue;
+
+                det += Math.Pow(-1, i) * matrix[0, i] * CalculateDeterminant(CutRowAndColumn(matrix, 0, i)).Value;
+            }
+
+            return det;
+        }
+
         /// <summary> Calculates and returns a new inverse matrix if matrix is square. ONLY FOR 3x3 MATRICES </summary>
         /// <returns> new inverse matrix </returns>
         /* public Matrix CalculateInverse()
@@ -290,6 +316,24 @@ namespace AppliedMathLibrary.Objects
 
             return newMatrix;
         } */
+
+        private static Matrix CutRowAndColumn(Matrix matrix, int rowIndex, int columnIndex)
+        {
+            var newMatrix = new Matrix(matrix._n - 1, matrix._m - 1);
+
+            for (int i = 0; i < newMatrix._n; i++)
+            {
+                for (int j = 0; j < newMatrix._m; j++)
+                {
+                    if (i < rowIndex && j < columnIndex) newMatrix[i, j] = matrix[i, j];
+                    else if (i >= rowIndex && j < columnIndex) newMatrix[i, j] = matrix[i + 1, j];
+                    else if (i < rowIndex && j >= columnIndex) newMatrix[i, j] = matrix[i, j + 1];
+                    else newMatrix[i, j] = matrix[i + 1, j + 1];
+                }
+            }
+
+            return newMatrix;
+        }
 
         /// <summary> Debug string representations </summary>
         public override string ToString()
