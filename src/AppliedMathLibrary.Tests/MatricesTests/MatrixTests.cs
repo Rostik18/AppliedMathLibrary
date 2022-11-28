@@ -27,6 +27,24 @@ namespace AppliedMathLibrary.Tests.MatricesTests
             actualDet2.Value.Should().Be(expectedDet);
         }
 
+        [Theory]
+        [InlineData(1, new[] { 1.0 }, 1, new[] { 1.0 })]
+        [InlineData(2, new[] { 4.0, 6, 3, 8 }, 2, new[] { 2.0, 3, 1.5, 4 })]
+        [InlineData(2, new[] { 6.0, 3, -3, 9 }, -1.5, new[] { 2.0, -2.0, -4.0, -6.0 })]
+        public void DivideMatrixByScalar_ResultCorrect(int n, double[] values, double scalar, double[] expectedValues)
+        {
+            var matrix = new Matrix(n, values);
+            var expectedMatrix = new Matrix(n, expectedValues);
+
+            var actualResult1 = matrix.DivideBy(scalar);
+            var actualResult2 = Matrix.Divide(matrix, scalar);
+            var actualResult3 = matrix / scalar;
+
+            actualResult1.Should().BeEquivalentTo(expectedMatrix);
+            actualResult2.Should().BeEquivalentTo(expectedMatrix);
+            actualResult3.Should().BeEquivalentTo(expectedMatrix);
+        }
+
         #region Negative scenarios
 
         [Fact]
@@ -39,6 +57,14 @@ namespace AppliedMathLibrary.Tests.MatricesTests
 
             result1.IsSuccess.Should().BeFalse();
             result2.IsSuccess.Should().BeFalse();
+        }
+
+        [Fact]
+        public void DivideMatrixByZero_ExceptionThrown()
+        {
+            Assert.Throws<DivideByZeroException>(() => new Matrix(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }).DivideBy(0));
+            Assert.Throws<DivideByZeroException>(() => Matrix.Divide(new(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }), 0));
+            Assert.Throws<DivideByZeroException>(() => new Matrix(2, 3, new[] { 1.0, 2, 3, 4, 5, 6 }) / 0);
         }
 
         #endregion

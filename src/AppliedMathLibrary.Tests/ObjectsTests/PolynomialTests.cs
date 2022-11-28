@@ -140,9 +140,9 @@ namespace AppliedMathLibrary.Tests.ObjectsTests
         [Fact]
         public void DividePolynomByZero_ExceptionThrown()
         {
-            Assert.Throws<ArgumentException>(() => new Polynomial(1, 2).DivideBy(0));
-            Assert.Throws<ArgumentException>(() => Polynomial.Divide(new(1, 2), 0));
-            Assert.Throws<ArgumentException>(() => new Polynomial(1, 2) / 0);
+            Assert.Throws<DivideByZeroException>(() => new Polynomial(1, 2).DivideBy(0));
+            Assert.Throws<DivideByZeroException>(() => Polynomial.Divide(new(1, 2), 0));
+            Assert.Throws<DivideByZeroException>(() => new Polynomial(1, 2) / 0);
         }
 
         #endregion

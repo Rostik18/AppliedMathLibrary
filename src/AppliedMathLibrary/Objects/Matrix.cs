@@ -157,10 +157,7 @@ namespace AppliedMathLibrary.Objects
 
         /// <summary> Creates a new transposed matrix based on this </summary>
         /// <returns> New transposed matrix </returns>
-        public Matrix Transpose()
-        {
-            return Transpose(this);
-        }
+        public Matrix Transpose() => Transpose(this);
 
         /// <summary> Returns new list of vectors where each vector is matrix row </summary>
         /// <returns> New list of vectors </returns>
@@ -251,6 +248,33 @@ namespace AppliedMathLibrary.Objects
             return newVector;
         }
 
+        /// <summary> Divide each element of provided matrix by scalar </summary>
+        /// <returns> New matrix as a result of dividing </returns>
+        public static Matrix Divide(Matrix matrix, double scalar)
+        {
+            if (scalar == 0) throw new DivideByZeroException("Scalar can not be 0");
+
+            var newMatrix = new Matrix(matrix);
+
+            for (var i = 0; i < matrix._n; i++)
+            {
+                for (var j = 0; j < matrix._m; j++)
+                {
+                    newMatrix[i, j] /= scalar;
+                }
+            }
+
+            return newMatrix;
+        }
+
+        /// <summary> Divide each element of this matrix by scalar </summary>
+        /// <returns> New matrix as a result of dividing </returns>
+        public Matrix DivideBy(double scalar) => Divide(this, scalar);
+
+        /// <summary> Divide each element of provided matrix by scalar </summary>
+        /// <returns> New matrix as a result of dividing </returns>
+        public static Matrix operator /(Matrix matrix, double scalar) => Divide(matrix, scalar);
+
         /// <summary> Created identity (I) nxn matrix with 1 on main diagonal </summary>
         /// <param name="n"> Matrix rows and columns number </param>
         /// <returns> New identity (I) nxn matrix with 1 on main diagonal </returns>
@@ -292,7 +316,7 @@ namespace AppliedMathLibrary.Objects
         /// <summary> Calculates and returns a new inverse matrix if matrix is square. ONLY FOR 3x3 MATRICES </summary>
         /// <returns> new inverse matrix </returns>
         /* public Matrix CalculateInverse()
-        {
+            {
             if (_n != _m && _n != 3)
                 throw new ArgumentException();
 
@@ -306,7 +330,7 @@ namespace AppliedMathLibrary.Objects
 
             //Inverse of matrix
             for (var i = 0; i < _n; i++)
-            {
+                {
                 for (var j = 0; j < 3; j++)
                     newMatrix[i, j] =
                         ((_elements[(j + 1) % 3, (i + 1) % 3] * _elements[(j + 2) % 3, (i + 2) % 3]) -

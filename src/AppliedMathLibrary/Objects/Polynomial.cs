@@ -165,7 +165,7 @@ namespace AppliedMathLibrary.Objects
         /// <returns> New polynomial as a result of dividing </returns>
         public static Polynomial Divide(Polynomial polynomial, double scalar)
         {
-            if (scalar == 0) throw new ArgumentException("Scalar can not be 0");
+            if (scalar == 0) throw new DivideByZeroException("Scalar can not be 0");
 
             var newPoly = new Polynomial(polynomial);
 

@@ -178,8 +178,7 @@ namespace AppliedMathLibrary.Objects
         /// <returns> A new vector with elements as elements of provided vector divided by scalar </returns>
         public static Vector Divide(Vector vector, double scalar)
         {
-            if (scalar == 0)
-                throw new ArgumentException("Scalar should be different than zero");
+            if (scalar == 0) throw new DivideByZeroException("Scalar can not be 0");
 
             var newVector = new Vector(vector.Dimension);
 
