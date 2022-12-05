@@ -1,8 +1,6 @@
-﻿using AppliedMathLibrary.Matrices;
-using AppliedMathLibrary.Methods;
-using AppliedMathLibrary.Vectors;
+﻿using AppliedMathLibrary.Methods;
+using AppliedMathLibrary.Objects;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace AppliedMathLibrary.Tests.Methods
@@ -20,7 +18,8 @@ namespace AppliedMathLibrary.Tests.Methods
 
             var actualResult = GaussMethod.SolveMatrixSystem(A, b, out var actualDet);
 
-            actualResult.Should().BeEquivalentTo(expectedResult);
+            actualResult.IsSuccess.Should().BeTrue();
+            actualResult.Value.Should().BeEquivalentTo(expectedResult);
             actualDet.Should().Be(expectedDet);
         }
 
@@ -32,10 +31,9 @@ namespace AppliedMathLibrary.Tests.Methods
             var A = new Matrix(2, 2, new double[] { 1, 8, 1, 4 });
             var b = new Vector(21, 30, 17);
 
-            Assert.Throws<ArgumentException>(() =>
-            {
-                GaussMethod.SolveMatrixSystem(A, b, out _);
-            });
+            var result = GaussMethod.SolveMatrixSystem(A, b, out _);
+
+            result.IsSuccess.Should().BeFalse();
         }
 
         #endregion

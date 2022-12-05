@@ -1,5 +1,5 @@
 ﻿using System;
-using AppliedMathLibrary.Vectors;
+using AppliedMathLibrary.Objects;
 using FluentAssertions;
 using Xunit;
 

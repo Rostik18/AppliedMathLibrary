@@ -1,14 +1,11 @@
-﻿using AppliedMathLibrary.Points;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 
-namespace AppliedMathLibrary.Vectors
+namespace AppliedMathLibrary.Objects
 {
+    /// <summary> Represents the basic implementation of a mathematical vector of any dimension. </summary>
     public class Vector : IEnumerable<double>
     {
-        protected readonly int N;
+        /// <summary> Array of elements representing the vector direction </summary>
         protected double[] Elements;
 
         #region Constructors
@@ -20,42 +17,40 @@ namespace AppliedMathLibrary.Vectors
             if (n < 1)
                 throw new ArgumentException($"Can not create {n}-dimensional vector. Such a vector has no meaning");
 
-            N = n;
-            Elements = new double[N];
+            Elements = new double[n];
         }
 
         /// <summary> Create a new n-dimensional vector with provided n values. </summary>
         /// <param name="values">n provided values</param>
         public Vector(params double[] values) : this(values.Length)
         {
-            Elements = values.Clone() as double[];
+            Elements = values.ToArray();
         }
 
         /// <summary> Create a new vector based on provided </summary>
         /// <param name="vector">Old vector</param>
         public Vector(Vector vector)
         {
-            N = vector.N;
-            Elements = vector.Elements.Clone() as double[];
+            Elements = vector.Elements.ToArray();
         }
 
         /// <summary> Create a new vector based on provided point </summary>
         /// <param name="point">Old point</param>
         public Vector(Point point)
         {
-            N = point.Dimension;
-            Elements = new double[N];
-            for (var i = 0; i < N; i++)
-            {
-                Elements[i] = point[i];
-            }
+            Elements = point.ToArray();
         }
 
         #endregion
 
         #region Properties
 
-        public int Dimension => N;
+        /// <summary> Vector dimension </summary>
+        public int Dimension => Elements.Length;
+
+        /// <summary> Simple index implementation </summary>
+        /// <param name="i"> Index of element in point </param>
+        /// <returns> Point element under index i </returns>
         public double this[int i]
         {
             get => Elements[i];
@@ -73,10 +68,10 @@ namespace AppliedMathLibrary.Vectors
             if (vector1 is null || vector2 is null)
                 throw new NullReferenceException("Comparing vectors cannot be null");
 
-            if (vector1.N != vector2.N)
+            if (vector1.Dimension != vector2.Dimension)
                 throw new ArgumentException("Vectors with different dimension cannot be compared");
 
-            for (var i = 0; i < vector1.N; i++)
+            for (var i = 0; i < vector1.Dimension; i++)
             {
                 if (Math.Abs(vector1.Elements[i] - vector2.Elements[i]) > 0.0000000000000001)
                     return false;
@@ -96,7 +91,7 @@ namespace AppliedMathLibrary.Vectors
             if (vector1 is null || vector2 is null)
                 throw new NullReferenceException("Comparing vectors cannot be null");
 
-            if (vector1.N != vector2.N)
+            if (vector1.Dimension != vector2.Dimension)
                 return false;
 
             if (CompareByValue(vector1, vector2))
@@ -105,7 +100,7 @@ namespace AppliedMathLibrary.Vectors
             var firstHaveBiggerElement = false;
             var secondHaveBiggerElement = false;
 
-            for (var i = 0; i < vector1.N; i++)
+            for (var i = 0; i < vector1.Dimension; i++)
             {
                 if (vector1.Elements[i] > vector2.Elements[i])
                     firstHaveBiggerElement = true;
@@ -137,12 +132,12 @@ namespace AppliedMathLibrary.Vectors
         /// <returns> New subtracted vector </returns>
         public static Vector Subtract(Vector vector1, Vector vector2)
         {
-            if (vector1.N != vector2.N)
+            if (vector1.Dimension != vector2.Dimension)
                 throw new ArgumentException("Vectors have different dimensions");
 
-            var newVector = new Vector(vector1.N);
+            var newVector = new Vector(vector1.Dimension);
 
-            for (var i = 0; i < vector1.N; i++)
+            for (var i = 0; i < vector1.Dimension; i++)
                 newVector[i] = vector1.Elements[i] - vector2.Elements[i];
 
             return newVector;
@@ -160,12 +155,12 @@ namespace AppliedMathLibrary.Vectors
         /// <returns> New vector as sum of two provided </returns>
         public static Vector Sum(Vector vector1, Vector vector2)
         {
-            if (vector1.N != vector2.N)
+            if (vector1.Dimension != vector2.Dimension)
                 throw new ArgumentException("Vectors have different dimensions");
 
-            var newVector = new Vector(vector1.N);
+            var newVector = new Vector(vector1.Dimension);
 
-            for (var i = 0; i < vector1.N; i++)
+            for (var i = 0; i < vector1.Dimension; i++)
                 newVector[i] = vector1.Elements[i] + vector2.Elements[i];
 
             return newVector;
@@ -183,12 +178,11 @@ namespace AppliedMathLibrary.Vectors
         /// <returns> A new vector with elements as elements of provided vector divided by scalar </returns>
         public static Vector Divide(Vector vector, double scalar)
         {
-            if (scalar == 0)
-                throw new ArgumentException("Scalar should be different than zero");
+            if (scalar == 0) throw new DivideByZeroException("Scalar can not be 0");
 
-            var newVector = new Vector(vector.N);
+            var newVector = new Vector(vector.Dimension);
 
-            for (var i = 0; i < vector.N; i++)
+            for (var i = 0; i < vector.Dimension; i++)
                 newVector[i] = vector.Elements[i] / scalar;
 
             return newVector;
@@ -210,9 +204,9 @@ namespace AppliedMathLibrary.Vectors
         /// <returns> A new vector with elements as elements of provided vector multiplied by scalar </returns>
         public static Vector Multiply(Vector vector, double scalar)
         {
-            var newVector = new Vector(vector.N);
+            var newVector = new Vector(vector.Dimension);
 
-            for (var i = 0; i < vector.N; i++)
+            for (var i = 0; i < vector.Dimension; i++)
                 newVector[i] = vector.Elements[i] * scalar;
 
             return newVector;
@@ -228,7 +222,7 @@ namespace AppliedMathLibrary.Vectors
         {
             double sum = 0;
 
-            for (var i = 0; i < N; i++)
+            for (var i = 0; i < Dimension; i++)
                 sum += Elements[i] * Elements[i];
 
             return Math.Sqrt(sum);
@@ -242,12 +236,12 @@ namespace AppliedMathLibrary.Vectors
         /// <returns> Distance between two vectors </returns>
         public static double DistanceBetween(Vector vector1, Vector vector2)
         {
-            if (vector1.N != vector2.N)
+            if (vector1.Dimension != vector2.Dimension)
                 throw new ArgumentException("Vectors have different dimensions");
 
             double sum = 0;
 
-            for (var i = 0; i < vector1.N; i++)
+            for (var i = 0; i < vector1.Dimension; i++)
                 sum += Math.Pow(vector1.Elements[i] - vector2.Elements[i], 2);
 
             return Math.Sqrt(sum);
@@ -260,9 +254,10 @@ namespace AppliedMathLibrary.Vectors
 
         #region IEnumerableImplementation
 
+        /// <summary> Default implementation of GetEnumerator </summary>
         public IEnumerator<double> GetEnumerator()
         {
-            return Elements.Cast<double>().GetEnumerator();
+            return ((IEnumerable<double>)Elements).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

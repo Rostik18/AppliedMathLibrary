@@ -1,7 +1,4 @@
-﻿using AppliedMathLibrary.Vectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AppliedMathLibrary.Objects;
 
 namespace AppliedMathLibrary.Methods
 {
@@ -9,6 +6,7 @@ namespace AppliedMathLibrary.Methods
     public static class ParetoMethods
     {
         /// <summary> Compares vectors with equal dimension by Pareto principle.  True - if this vector is better. False - in all other cases </summary>
+        /// <param name="current"> Base, current vector for comparison </param>
         /// <param name="vector"> Vector for comparison </param>
         /// <returns> True - if this vector is better by Pareto than provided. False - in all other cases </returns>
         public static bool BetterByParetoThan(this Vector current, Vector vector)

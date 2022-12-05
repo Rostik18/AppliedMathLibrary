@@ -8,7 +8,7 @@ namespace AppliedMathLibrary.Tests.Methods
 {
     public class StatisticsTests
     {
-        private readonly double[] cubeSidesDropProbability = new double[] { 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6 };
+        private readonly double[] cubeSidesDropProbability = new[] { 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6, 1.0 / 6 };
 
         [Fact]
         public void StatisticsMean()

@@ -1,5 +1,4 @@
-﻿using AppliedMathLibrary.Matrices;
-using AppliedMathLibrary.Vectors;
+﻿using AppliedMathLibrary.Objects;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -185,6 +184,22 @@ namespace AppliedMathLibrary.Tests.MatricesTests
             matrix[0, 2].Should().Be(3);
             matrix[1, 0].Should().Be(4);
             matrix[1, 2].Should().Be(6);
+        }
+
+        [Fact]
+        public void CreateIdentityMatrix_MatrixCreated()
+        {
+            var n = 3;
+            var matrix = Matrix.CreateIdentityMatrix(n);
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (i == j) matrix[i, j].Should().Be(1);
+                    else matrix[i, j].Should().Be(0);
+                }
+            }
         }
 
         #endregion

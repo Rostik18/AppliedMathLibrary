@@ -1,5 +1,4 @@
-﻿using AppliedMathLibrary.Points;
-using AppliedMathLibrary.Vectors;
+﻿using AppliedMathLibrary.Objects;
 using FluentAssertions;
 using System;
 using System.Linq;

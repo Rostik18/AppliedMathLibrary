@@ -1,4 +1,4 @@
-﻿using AppliedMathLibrary.Vectors;
+﻿using AppliedMathLibrary.Objects;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -148,9 +148,9 @@ namespace AppliedMathLibrary.Tests.VectorsTests
             var vector = new Vector(1, 2);
             var scalar = 0;
 
-            Assert.Throws<ArgumentException>(() => vector.DivideBy(scalar));
-            Assert.Throws<ArgumentException>(() => vector / scalar);
-            Assert.Throws<ArgumentException>(() => Vector.Divide(vector, scalar));
+            Assert.Throws<DivideByZeroException>(() => vector.DivideBy(scalar));
+            Assert.Throws<DivideByZeroException>(() => vector / scalar);
+            Assert.Throws<DivideByZeroException>(() => Vector.Divide(vector, scalar));
         }
 
         #endregion
